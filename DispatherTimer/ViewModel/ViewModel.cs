@@ -35,13 +35,13 @@ namespace DispatherTimer
         public void StartWorkingTimeTodayTimer()
         {
             StartTimeWholeDay = DateTime.Now;
-            DateTime x30MinsLater = StartTimeWholeDay.AddSeconds(50);
+            DateTime x30MinsLater = StartTimeWholeDay.AddSeconds(-50); // -50 to start timer from 00:00:50
 
             _dailyTimer = new DispatcherTimer(DispatcherPriority.Render);
             _dailyTimer.Interval = TimeSpan.FromSeconds(1);
             _dailyTimer.Tick += (sender, args) =>
             {
-                CurrentTime = (DateTime.Now - StartTimeWholeDay).ToString(@"hh\:mm\:ss"); // DateTime.Now.ToLongTimeString()
+                CurrentTime = (DateTime.Now - x30MinsLater).ToString(@"hh\:mm\:ss"); // DateTime.Now.ToLongTimeString()
             };
             _dailyTimer.Start();
         }
