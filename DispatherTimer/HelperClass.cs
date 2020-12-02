@@ -33,5 +33,22 @@ namespace DispatherTimer
 
             return timeSpan;
         }
+
+        public static TimeSpan ParseToTimeSpanRingTime()
+        {
+            string TimeAsString = ViewModel.HoursLimitConfProp;
+
+            TimeSpan timeSpan = new TimeSpan(0, 0, 0, 0, 0);
+
+            if (!string.IsNullOrEmpty(TimeAsString))
+            {
+                List<int> TimeSplit = TimeAsString.Split(':').Where(x => int.TryParse(x, out _)).Select(int.Parse).ToList();
+                timeSpan = new TimeSpan(0, TimeSplit[0], TimeSplit[1], 0, 0);
+            }
+
+            //Debug.WriteLine("Ring time: " + timeSpan);
+
+            return timeSpan;
+        }
     }
 }

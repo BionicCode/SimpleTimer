@@ -7,7 +7,7 @@ namespace DispatherTimer
     class ViewModel : BaseViewModel
     {
 
-        public static readonly string HoursLimitConfProp = "00:01";
+        public static readonly string HoursLimitConfProp = "00:05";
         public static readonly int StartFromSecConfProp = 50;
 
         public ViewModel()
@@ -56,19 +56,21 @@ namespace DispatherTimer
         private DispatcherTimer _dailyTimer;
         public void StartWorkingTimeTodayTimer()
         {
-            DateTime dt = HelperClass.DateTimeConverter(HoursLimitProp);
+            DateTime RingTime = HelperClass.DateTimeConverter(HoursLimitProp);
 
             DateTime SecondsAlreadyPassed = DateTime.Now.AddSeconds(StartFromSecConfProp * -1);
 
             _dailyTimer = new DispatcherTimer(DispatcherPriority.Render);
             _dailyTimer.Interval = TimeSpan.FromSeconds(1);
-            _dailyTimer.Tick += (sender, e) => { DailyTimer_Tick(sender, e, SecondsAlreadyPassed, dt); }; ;
+            _dailyTimer.Tick += (sender, e) => { DailyTimer_Tick(sender, e, SecondsAlreadyPassed, RingTime); }; ;
             _dailyTimer.Start();
         }
 
         private void DailyTimer_Tick(object sender, EventArgs e, DateTime SecondsAlreadyPassed, DateTime RingTime)
         {
             CurrentTime = (DateTime.Now - SecondsAlreadyPassed).ToString(@"hh\:mm\:ss"); // DateTime.Now.ToLongTimeString()
+
+            RingTime = HelperClass.DateTimeConverter(HoursLimitProp);
 
             Debug.WriteLine("Current time: " + CurrentTime);
             Debug.WriteLine("Ring time: " + RingTime.ToLongTimeString());

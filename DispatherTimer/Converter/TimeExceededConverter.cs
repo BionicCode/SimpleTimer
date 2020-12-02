@@ -13,13 +13,12 @@ namespace DispatherTimer
         {
             string HoursLimitProp = (string)value;
 
-            DateTime dt = HelperClass.DateTimeConverter(HoursLimitProp);
+            TimeSpan res;
+            var result = TimeSpan.TryParseExact(HoursLimitProp, @"hh\:mm\:ss", CultureInfo.InvariantCulture, out res);
 
-            TimeSpan timeSpan = HelperClass.ParseToTimeSpan(HoursLimitProp);
+            TimeSpan RingTime = HelperClass.ParseToTimeSpanRingTime();
 
-            TimeSpan time = dt.TimeOfDay;
-
-            if (time < timeSpan)
+            if (res > RingTime)
             {
                 return Brushes.Red;
             }
