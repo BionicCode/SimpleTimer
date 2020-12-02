@@ -6,5 +6,5 @@ Simple timer where you can set your time to execute "ring a bell" command.
 * IValueConverter
 * Net.Core
 
-![GitHub Logo](https://user-images.githubusercontent.com/72302395/100875386-9e511580-34ae-11eb-9ce3-026796ba463b.png)
+![GitHub Logo](https://user-images.githubusercontent.com/72302395/100936473-3d4f2f00-34fa-11eb-8331-f2248ec5ce76.png)
 
