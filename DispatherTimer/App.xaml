@@ -4,6 +4,15 @@
              xmlns:local="clr-namespace:DispatherTimer"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+
+            <!--FONTS-->
+            <FontFamily x:Key="Roboto">pack://application:,,,/Fonts/#Roboto</FontFamily>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ResourceDictionaries/Dictionary1.xaml"/>
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

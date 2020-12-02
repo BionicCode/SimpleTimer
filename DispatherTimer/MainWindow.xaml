@@ -3,16 +3,28 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DispatherTimer"
+        xmlns:local="clr-namespace:DispatherTimer" 
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <local:TimeExceededConverter x:Key="TimeExceededConverter"></local:TimeExceededConverter>
+    </Window.Resources>
+
+
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="107*"/>
-            <RowDefinition Height="327*"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <Label HorizontalAlignment="Center" Height="103" Margin="0,59,0,165" Width="427" 
-               FontSize="70" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="1"
+        <Label HorizontalAlignment="Center" Height="103" Margin="0,166,0,165" Width="428" 
+               Foreground="{Binding Path=CurrentTime, Converter={StaticResource TimeExceededConverter}}"
+               FontSize="70" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                x:Name="lblTime" Content="{Binding Path=CurrentTime}"/>
+        <TextBox Text="{Binding HoursLimitProp, Mode=TwoWay}" HorizontalAlignment="Left" Height="36" Margin="133,10,0,0" 
+                 VerticalAlignment="Top" Width="166" FontSize="20"/>
+        <Label Content="Set limit time:" HorizontalAlignment="Left" Height="36" Margin="10,10,0,0" VerticalAlignment="Top" Width="118" FontSize="18"/>
+        <ContentControl Style="{StaticResource ClockTimeExceeded_icon}" Width="30" Height="30" Margin="323,13,447,391"/>
     </Grid>
 </Window>
