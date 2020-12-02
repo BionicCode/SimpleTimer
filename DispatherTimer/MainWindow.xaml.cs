@@ -12,5 +12,10 @@ namespace DispatherTimer
             InitializeComponent();
             DataContext = new ViewModel();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.HoursLimitConfProp = HoursLimitBox.Text; 
+        }
     }
 }

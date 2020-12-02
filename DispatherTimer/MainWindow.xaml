@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DispatherTimer" 
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Simple timer" Height="450" Width="800">
     <Window.Resources>
         <local:TimeExceededConverter x:Key="TimeExceededConverter"></local:TimeExceededConverter>
     </Window.Resources>
@@ -22,13 +22,14 @@
                Foreground="{Binding Path=CurrentTime, Converter={StaticResource TimeExceededConverter}}"
                FontSize="70" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                x:Name="lblTime" Content="{Binding Path=CurrentTime}"/>
-        <TextBox Text="{Binding HoursLimitProp, Mode=TwoWay}" HorizontalAlignment="Left" Height="36" Margin="133,10,0,0" 
+        <TextBox x:Name="HoursLimitBox" Text="{Binding HoursLimitProp, Mode=TwoWay}" HorizontalAlignment="Left" Height="36" Margin="133,10,0,0" 
                  VerticalAlignment="Top" Width="166" FontSize="20"/>
         <Label Content="Set limit time:" HorizontalAlignment="Left" Height="36" Margin="10,10,0,0" VerticalAlignment="Top" Width="118" FontSize="18"/>
-        <Viewbox>
-        <ContentControl Style="{StaticResource ClockTimeExceeded_icon}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="30" Height="30" Margin="323,13,447,391"/>
+        <Viewbox Margin="725,8,12,364">
+            <ContentControl Style="{StaticResource ClockTimeExceeded_icon}" Foreground="{Binding Path=CurrentTime, Converter={StaticResource TimeExceededConverter}}" Margin="10" />
         </Viewbox>
-        
-        
+        <Button Content="Update" HorizontalAlignment="Left" Height="36" Margin="317,10,0,0" VerticalAlignment="Top" Width="97" Click="Button_Click"/>
+
+
     </Grid>
 </Window>

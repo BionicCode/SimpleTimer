@@ -7,7 +7,7 @@ namespace DispatherTimer
     class ViewModel : BaseViewModel
     {
 
-        public static readonly string HoursLimitConfProp = "00:05";
+        public static string HoursLimitConfProp = "00:05";
         public static readonly int StartFromSecConfProp = 50;
 
         public ViewModel()
