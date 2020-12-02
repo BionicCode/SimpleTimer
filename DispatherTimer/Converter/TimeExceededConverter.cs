@@ -11,16 +11,27 @@ namespace DispatherTimer
     {
         #region IValueConverter Members
 
+        //private ViewModel ViewModel { get; }
+
+        //public TimeExceededConverter(ViewModel viewModel)
+        //{
+        //    this.ViewModel = viewModel;
+        //}
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             string text = (string)value;
+
+            DateTime RingTime = DateTime.Today;
             var dateNow = DateTime.Now;
 
             var SVM = new ViewModel();
 
-            List<int> TimeSplit = SVM.HoursLimitProp.Split(':').Where(x => int.TryParse(x, out _)).Select(int.Parse).ToList();
-
-            DateTime RingTime = new DateTime(dateNow.Year, dateNow.Month, dateNow.Day, TimeSplit[0], TimeSplit[1], 00);
+            if (!string.IsNullOrEmpty(SVM.HoursLimitProp))
+            {
+                List<int> TimeSplit = SVM.HoursLimitProp.Split(':').Where(x => int.TryParse(x, out _)).Select(int.Parse).ToList();
+                RingTime = new DateTime(dateNow.Year, dateNow.Month, dateNow.Day, TimeSplit[0], TimeSplit[1], 00);
+            }
 
             TimeSpan res;
             var result = TimeSpan.TryParseExact(text, @"hh\:mm\:ss", CultureInfo.InvariantCulture, out res);

@@ -25,6 +25,8 @@
         <TextBox Text="{Binding HoursLimitProp, Mode=TwoWay}" HorizontalAlignment="Left" Height="36" Margin="133,10,0,0" 
                  VerticalAlignment="Top" Width="166" FontSize="20"/>
         <Label Content="Set limit time:" HorizontalAlignment="Left" Height="36" Margin="10,10,0,0" VerticalAlignment="Top" Width="118" FontSize="18"/>
-        <ContentControl Style="{StaticResource ClockTimeExceeded_icon}" Width="30" Height="30" Margin="323,13,447,391"/>
+        <Viewbox>
+        <ContentControl Style="{StaticResource ClockTimeExceeded_icon}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="30" Height="30" Margin="323,13,447,391"/>
+        </Viewbox>
     </Grid>
 </Window>
