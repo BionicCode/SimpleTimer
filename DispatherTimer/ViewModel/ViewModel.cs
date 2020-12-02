@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Threading;
 
@@ -56,35 +57,23 @@ namespace DispatherTimer
             }
         }
 
-        private static DateTime StartTimeWholeDay;
         private DispatcherTimer _dailyTimer;
         public void StartWorkingTimeTodayTimer()
         {
-            int AlreadyWorkedTime = 0;
-            DateTime RingTime = DateTime.Today.AddDays(10);
+            DateTime dt = HelperClass.DateTimeConverter(HoursLimitProp);
 
-            if (!string.IsNullOrEmpty(HoursLimitProp))
-            {
-                List<int> TimeSplit = HoursLimitProp.Split(':').Where(x => int.TryParse(x, out _)).Select(int.Parse).ToList();
-
-                var dateNow = DateTime.Now;
-                RingTime = new DateTime(dateNow.Year, dateNow.Month, dateNow.Day, TimeSplit[0], TimeSplit[1], 00);
-
-                AlreadyWorkedTime = StartFromSecConfProp * -1;
-            }
-
-            StartTimeWholeDay = DateTime.Now;
-
-            DateTime SecondsAlreadyPassed = StartTimeWholeDay.AddSeconds(AlreadyWorkedTime);
+            DateTime SecondsAlreadyPassed = DateTime.Now.AddSeconds(StartFromSecConfProp * -1);
 
             _dailyTimer = new DispatcherTimer(DispatcherPriority.Render);
             _dailyTimer.Interval = TimeSpan.FromSeconds(1);
-            _dailyTimer.Tick += (sender, e) => { DailyTimer_Tick(sender, e, SecondsAlreadyPassed, RingTime); }; ;
+            _dailyTimer.Tick += (sender, e) => { DailyTimer_Tick(sender, e, SecondsAlreadyPassed, dt); }; ;
             _dailyTimer.Start();
         }
 
         private void DailyTimer_Tick(object sender, EventArgs e, DateTime SecondsAlreadyPassed, DateTime RingTime)
         {
+            CurrentTime = (DateTime.Now - SecondsAlreadyPassed).ToString(@"hh\:mm\:ss"); // DateTime.Now.ToLongTimeString()
+
             Debug.WriteLine("Current time: " + CurrentTime);
             Debug.WriteLine("Ring time: " + RingTime.ToLongTimeString());
 
@@ -92,8 +81,6 @@ namespace DispatherTimer
             {
                 PlaySound();
             }
-
-            CurrentTime = (DateTime.Now - SecondsAlreadyPassed).ToString(@"hh\:mm\:ss"); // DateTime.Now.ToLongTimeString()
         }
 
         private void PlaySound()

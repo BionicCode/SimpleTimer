@@ -28,5 +28,7 @@
         <Viewbox>
         <ContentControl Style="{StaticResource ClockTimeExceeded_icon}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="30" Height="30" Margin="323,13,447,391"/>
         </Viewbox>
+        
+        
     </Grid>
 </Window>
