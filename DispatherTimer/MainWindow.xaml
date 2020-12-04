@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DispatherTimer" 
         mc:Ignorable="d"
-        Title="Simple timer" Height="450" Width="800" Background="LightGray">
+        Title="Simple timer" Height="450" Width="800" Background="LightGray" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <local:TimeExceededConverter x:Key="TimeExceededConverter"></local:TimeExceededConverter>
     </Window.Resources>
@@ -18,7 +18,7 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Label HorizontalAlignment="Center" Height="103" Margin="0,166,0,165" Width="428" 
+        <Label HorizontalAlignment="Center" Margin="0,166,0,132" Width="428" 
                Foreground="{Binding Path=CurrentTime, Converter={StaticResource TimeExceededConverter}}"
                FontSize="70" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                x:Name="lblTime" Content="{Binding Path=CurrentTime}"/>
