@@ -34,8 +34,7 @@ namespace SimpleTimer
       if (IsPaused)
       {
         Debug.WriteLine("RESUMEEE");
-        processTimer.Change(0, (int) this.interval.TotalMilliseconds);
-        IsPaused = false;
+        Start();
       }
       else
       {
@@ -48,6 +47,7 @@ namespace SimpleTimer
     public void Stop()
     {
       processTimer.Change(Timeout.Infinite, Timeout.Infinite);
+      this.canStart = true;
     }
 
     public void TimedProcess(object state)
