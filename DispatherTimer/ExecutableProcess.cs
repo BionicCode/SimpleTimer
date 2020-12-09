@@ -7,15 +7,16 @@ namespace SimpleTimer
   public class ExecutableProcess : IDisposable
   {
     private Timer processTimer;
-    private TimeSpan interval;
+    private TimeSpan Interval { get; set; }
     private Action processToRun;
     private bool canStart = true;
     private bool IsPaused;
 
     public ExecutableProcess(TimeSpan intervalSeconds, Action process)
     {
-      this.interval = intervalSeconds;
+      this.Interval = intervalSeconds;
       processToRun = process;
+      processTimer = new Timer(TimedProcess);
     }
 
     public void Start()
@@ -24,8 +25,7 @@ namespace SimpleTimer
       {
         canStart = false;
         IsPaused = false;
-        processTimer = new Timer(TimedProcess);
-        processTimer.Change(0, (int) this.interval.TotalMilliseconds);
+        processTimer.Change(0, (int) this.Interval.TotalMilliseconds);
       }
     }
 
@@ -52,7 +52,7 @@ namespace SimpleTimer
 
     public void TimedProcess(object state)
     {
-      processToRun.Invoke();
+      processToRun?.Invoke();
     }
 
     #region IDisposable
