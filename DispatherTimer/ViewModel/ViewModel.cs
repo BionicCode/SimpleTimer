@@ -12,10 +12,12 @@ namespace SimpleTimer
 
         private static Action _timerAction;
         private static int SecondsBetweenRun;
-        //ExecutableProcess executableProcess = new ExecutableProcess();
-        ExecutableProcess newProcess = new ExecutableProcess(SecondsBetweenRun, _timerAction);
+        private TimeSpan BackgroundWorkTimerInterval { get; set; }
+        private TimeSpan LabelTimerInterval { get; set; }
+    //ExecutableProcess executableProcess = new ExecutableProcess();
+    ExecutableProcess newProcess;
 
-        public ICommand PauseTimerCommand => new RelayCommand(param => PauseTimer());
+    public ICommand PauseTimerCommand => new RelayCommand(param => PauseTimer());
 
         public ViewModel()
         {
@@ -26,11 +28,13 @@ namespace SimpleTimer
             SystemEvents.SessionSwitch += new SessionSwitchEventHandler(SystemEvents_SessionSwitch);
 
             // We specify this method to be executed every 1 srcond // BACKGROUND WORK
-            var process = new ExecutableProcess(1000, MyProcessToExecute);
+            this.BackgroundWorkTimerInterval = TimeSpan.FromSeconds(1);
+            var process = new ExecutableProcess(this.BackgroundWorkTimerInterval, MyProcessToExecute);
             process.Start();
 
-            // We specify this method to be executed every 1 srcond // DISPLAYED IN LABEL
-            newProcess = new ExecutableProcess(1000, LabelTimer);
+      // We specify this method to be executed every 1 srcond // DISPLAYED IN LABEL
+      this.LabelTimerInterval = TimeSpan.FromSeconds(1);
+      newProcess = new ExecutableProcess(this.LabelTimerInterval, LabelTimer);
             newProcess.Start();
         }
 
@@ -43,7 +47,8 @@ namespace SimpleTimer
 
         private void LabelTimer()
         {
-            CurrentTime = (DateTime.Now - SecondsAlreadyPassed).ToString(@"hh\:mm\:ss"); // DateTime.Now.ToLongTimeString()
+            this.SecondsAlreadyPassed = SecondsAlreadyPassed.AddSeconds(this.LabelTimerInterval.Seconds);
+            CurrentTime = SecondsAlreadyPassed.ToString(@"hh\:mm\:ss"); // DateTime.Now.ToLongTimeString()
 
             DateTime RingTime = HelperClass.DateTimeConverter(HoursLimitProp);
 
