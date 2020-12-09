@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace DispatherTimer
+namespace SimpleTimer
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -10,12 +10,14 @@ namespace DispatherTimer
         public MainWindow()
         {
             InitializeComponent();
+
             DataContext = new ViewModel();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.HoursLimitConfProp = HoursLimitBox.Text; 
+            Properties.Appsettings.Default["TimeSetting"] = HoursLimitBox.Text;
+            Properties.Appsettings.Default.Save();
         }
     }
 }

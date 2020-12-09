@@ -1,21 +1,106 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Diagnostics;
+using System.Windows.Input;
 using System.Windows.Threading;
 
-namespace DispatherTimer
+namespace SimpleTimer
 {
-    class ViewModel : BaseViewModel
+    public class ViewModel : BaseViewModel
     {
-
-        public static string HoursLimitConfProp = "00:05";
         public static readonly int StartFromSecConfProp = 50;
+
+        private static Action _timerAction;
+        private static int SecondsBetweenRun;
+        //ExecutableProcess executableProcess = new ExecutableProcess();
+        ExecutableProcess newProcess = new ExecutableProcess(SecondsBetweenRun, _timerAction);
+
+        public ICommand PauseTimerCommand => new RelayCommand(param => PauseTimer());
 
         public ViewModel()
         {
-            HoursLimitProp = HoursLimitConfProp;
+            HoursLimitProp = (string)Properties.Appsettings.Default["TimeSetting"]; // (string)Properties.Appsettings.Default["TimeSetting"]
 
-            StartWorkingTimeTodayTimer();
+            //StartWorkingTimeTodayTimer();
 
+            SystemEvents.SessionSwitch += new SessionSwitchEventHandler(SystemEvents_SessionSwitch);
+
+            // We specify this method to be executed every 1 srcond // BACKGROUND WORK
+            var process = new ExecutableProcess(1000, MyProcessToExecute);
+            process.Start();
+
+            // We specify this method to be executed every 1 srcond // DISPLAYED IN LABEL
+            newProcess = new ExecutableProcess(1000, LabelTimer);
+            newProcess.Start();
+        }
+
+        private void PauseTimer()
+        {
+            newProcess.TogglePause();
+        }
+
+        DateTime SecondsAlreadyPassed = DateTime.Now.AddSeconds(StartFromSecConfProp * -1);
+
+        private void LabelTimer()
+        {
+            CurrentTime = (DateTime.Now - SecondsAlreadyPassed).ToString(@"hh\:mm\:ss"); // DateTime.Now.ToLongTimeString()
+
+            DateTime RingTime = HelperClass.DateTimeConverter(HoursLimitProp);
+
+            //Debug.WriteLine("Current time: " + CurrentTime);
+            //Debug.WriteLine("Ring time: " + RingTime.ToLongTimeString());
+
+            if (CurrentTime == RingTime.ToLongTimeString())
+            {
+                PlaySound();
+            }
+        }
+
+        private static void MyProcessToExecute()
+        {
+            Debug.Write($"Running {DateTime.Now}" + "\n");
+        }
+
+        void SystemEvents_SessionSwitch(object sender, SessionSwitchEventArgs e)
+        {
+            if (e.Reason == SessionSwitchReason.SessionLock)
+            {
+                Debug.Print("I am locked: " + DateTime.Now);
+                _dailyTimer.Stop();
+            }
+            else if (e.Reason == SessionSwitchReason.SessionUnlock)
+            {
+                Debug.Print("I am unlocked: " + DateTime.Now);
+                _dailyTimer.Start();
+            }
+        }
+
+        private DispatcherTimer _dailyTimer;
+        public void StartWorkingTimeTodayTimer()
+        {
+            DateTime RingTime = HelperClass.DateTimeConverter(HoursLimitProp);
+
+            DateTime SecondsAlreadyPassed = DateTime.Now.AddSeconds(StartFromSecConfProp * -1);
+
+            _dailyTimer = new DispatcherTimer(DispatcherPriority.Render);
+            _dailyTimer.Interval = TimeSpan.FromSeconds(1);
+            _dailyTimer.Tick += (sender, e) => { DailyTimer_Tick(sender, e, SecondsAlreadyPassed, RingTime); }; ;
+            _dailyTimer.Start();
+        }
+
+        private void DailyTimer_Tick(object sender, EventArgs e, DateTime SecondsAlreadyPassed, DateTime RingTime)
+        {
+            CurrentTime = (DateTime.Now - SecondsAlreadyPassed).ToString(@"hh\:mm\:ss"); // DateTime.Now.ToLongTimeString()
+
+            RingTime = HelperClass.DateTimeConverter(HoursLimitProp);
+
+            //Debug.WriteLine("Current time: " + CurrentTime);
+            //Debug.WriteLine("Ring time: " + RingTime.ToLongTimeString());
+
+            if (CurrentTime == RingTime.ToLongTimeString())
+            {
+                PlaySound();
+            }
         }
 
         /// <summary>
@@ -50,34 +135,6 @@ namespace DispatherTimer
                     _hoursLimit = value;
                     OnPropertyChanged();
                 }
-            }
-        }
-
-        private DispatcherTimer _dailyTimer;
-        public void StartWorkingTimeTodayTimer()
-        {
-            DateTime RingTime = HelperClass.DateTimeConverter(HoursLimitProp);
-
-            DateTime SecondsAlreadyPassed = DateTime.Now.AddSeconds(StartFromSecConfProp * -1);
-
-            _dailyTimer = new DispatcherTimer(DispatcherPriority.Render);
-            _dailyTimer.Interval = TimeSpan.FromSeconds(1);
-            _dailyTimer.Tick += (sender, e) => { DailyTimer_Tick(sender, e, SecondsAlreadyPassed, RingTime); }; ;
-            _dailyTimer.Start();
-        }
-
-        private void DailyTimer_Tick(object sender, EventArgs e, DateTime SecondsAlreadyPassed, DateTime RingTime)
-        {
-            CurrentTime = (DateTime.Now - SecondsAlreadyPassed).ToString(@"hh\:mm\:ss"); // DateTime.Now.ToLongTimeString()
-
-            RingTime = HelperClass.DateTimeConverter(HoursLimitProp);
-
-            Debug.WriteLine("Current time: " + CurrentTime);
-            Debug.WriteLine("Ring time: " + RingTime.ToLongTimeString());
-
-            if (CurrentTime == RingTime.ToLongTimeString())
-            {
-                PlaySound();
             }
         }
 

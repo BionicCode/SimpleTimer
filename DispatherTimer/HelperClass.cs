@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 
-namespace DispatherTimer
+namespace SimpleTimer
 {
     public static class HelperClass
     {
@@ -36,7 +36,7 @@ namespace DispatherTimer
 
         public static TimeSpan ParseToTimeSpanRingTime()
         {
-            string TimeAsString = ViewModel.HoursLimitConfProp;
+            string TimeAsString = (string)Properties.Appsettings.Default["TimeSetting"];
 
             TimeSpan timeSpan = new TimeSpan(0, 0, 0, 0, 0);
 
