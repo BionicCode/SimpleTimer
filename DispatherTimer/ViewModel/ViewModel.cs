@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Windows.Input;
 using System.Windows.Threading;
 
@@ -8,48 +9,43 @@ namespace SimpleTimer
 {
     public class ViewModel : BaseViewModel
     {
-        public static readonly int StartFromSecConfProp = 50;
+        public static readonly int StartFromSecConfProp = 1;
 
         private static Action _timerAction;
-        private static int SecondsBetweenRun;
+        private static TimeSpan SecondsBetweenRun;
         //ExecutableProcess executableProcess = new ExecutableProcess();
         ExecutableProcess newProcess = new ExecutableProcess(SecondsBetweenRun, _timerAction);
 
         public ICommand PauseTimerCommand => new RelayCommand(param => PauseTimer());
 
+        private TimeSpan BackgroundWorkTimerInterval { get; set; }
+        private TimeSpan LabelTimerInterval { get; set; }
         public ViewModel()
         {
             HoursLimitProp = (string)Properties.Appsettings.Default["TimeSetting"]; // (string)Properties.Appsettings.Default["TimeSetting"]
-
             //StartWorkingTimeTodayTimer();
-
             SystemEvents.SessionSwitch += new SessionSwitchEventHandler(SystemEvents_SessionSwitch);
-
             // We specify this method to be executed every 1 srcond // BACKGROUND WORK
-            var process = new ExecutableProcess(1000, MyProcessToExecute);
+            this.BackgroundWorkTimerInterval = TimeSpan.FromSeconds(1);
+            var process = new ExecutableProcess(this.BackgroundWorkTimerInterval, MyProcessToExecute);
             process.Start();
-
             // We specify this method to be executed every 1 srcond // DISPLAYED IN LABEL
-            newProcess = new ExecutableProcess(1000, LabelTimer);
+            this.LabelTimerInterval = TimeSpan.FromSeconds(1);
+            newProcess = new ExecutableProcess(this.LabelTimerInterval, LabelTimer);
             newProcess.Start();
         }
-
         private void PauseTimer()
         {
             newProcess.TogglePause();
         }
-
-        DateTime SecondsAlreadyPassed = DateTime.Now.AddSeconds(StartFromSecConfProp * -1);
-
+        DateTime SecondsAlreadyPassed = DateTime.Today;
         private void LabelTimer()
         {
-            CurrentTime = (DateTime.Now - SecondsAlreadyPassed).ToString(@"hh\:mm\:ss"); // DateTime.Now.ToLongTimeString()
-
+            this.SecondsAlreadyPassed = SecondsAlreadyPassed.AddSeconds(this.LabelTimerInterval.Seconds);
+            CurrentTime = SecondsAlreadyPassed.ToString(@"hh\:mm\:ss"); // DateTime.Now.ToLongTimeString()
             DateTime RingTime = HelperClass.DateTimeConverter(HoursLimitProp);
-
             //Debug.WriteLine("Current time: " + CurrentTime);
             //Debug.WriteLine("Ring time: " + RingTime.ToLongTimeString());
-
             if (CurrentTime == RingTime.ToLongTimeString())
             {
                 PlaySound();
@@ -66,7 +62,7 @@ namespace SimpleTimer
             if (e.Reason == SessionSwitchReason.SessionLock)
             {
                 Debug.Print("I am locked: " + DateTime.Now);
-                _dailyTimer.Stop();
+                newProcess.TogglePause();
             }
             else if (e.Reason == SessionSwitchReason.SessionUnlock)
             {

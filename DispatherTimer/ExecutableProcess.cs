@@ -1,75 +1,68 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading;
-
 namespace SimpleTimer
 {
-    public class ExecutableProcess
+    public class ExecutableProcess : IDisposable
     {
         private Timer processTimer;
-        private int delay;
-        private CancellationTokenSource source;
-        private CancellationToken token;
+        private TimeSpan Interval { get; set; }
         private Action processToRun;
-        private bool canStart = true;
+        private bool canStart;
         private bool IsPaused;
-
-        public ExecutableProcess(int delaySeconds, Action process)
+        public ExecutableProcess(TimeSpan intervalSeconds, Action process)
         {
-            delay = delaySeconds;
+            this.Interval = intervalSeconds;
             processToRun = process;
+            processTimer = new Timer(TimedProcess);
+            this.canStart = true;
         }
-
         public void Start()
         {
             if (canStart)
             {
                 canStart = false;
-                source = new CancellationTokenSource();
-                token = source.Token;
-                processTimer = new Timer(TimedProcess, token, Timeout.Infinite, Timeout.Infinite);
-                processTimer.Change(0, Timeout.Infinite);
                 IsPaused = false;
+                processTimer.Change(0, (int)this.Interval.TotalMilliseconds);
             }
-
         }
-
         public void TogglePause()
         {
-            if (IsPaused == true)
+            if (IsPaused)
             {
                 Debug.WriteLine("RESUMEEE");
-                processTimer.Change(0, Timeout.Infinite);
-                IsPaused = false; 
+                Start();
             }
             else
             {
                 Debug.WriteLine("PAUSEEE");
-                processTimer.Change(Timeout.Infinite, Timeout.Infinite);
+                Stop();
                 IsPaused = true;
             }
         }
-
         public void Stop()
         {
-            source.Cancel();
+            processTimer.Change(Timeout.Infinite, Timeout.Infinite);
+            this.canStart = true;
         }
-
         public void TimedProcess(object state)
         {
-
-            CancellationToken ct = (CancellationToken)state;
-            if (ct.IsCancellationRequested)
+            processToRun?.Invoke();
+        }
+        #region IDisposable
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
             {
-                processTimer.Dispose();
-                canStart = true;
-            }
-            else
-            {
-                processToRun.Invoke();
-                processTimer.Change(delay, Timeout.Infinite);
+                this.processTimer?.Dispose();
             }
         }
-
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 }
