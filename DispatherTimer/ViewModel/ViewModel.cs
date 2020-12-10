@@ -25,10 +25,14 @@ namespace SimpleTimer
             HoursLimitProp = (string)Properties.Appsettings.Default["TimeSetting"]; // (string)Properties.Appsettings.Default["TimeSetting"]
             //StartWorkingTimeTodayTimer();
             SystemEvents.SessionSwitch += new SessionSwitchEventHandler(SystemEvents_SessionSwitch);
+
+            //StartWorkingTimeTodayTimer();
+
             // We specify this method to be executed every 1 srcond // BACKGROUND WORK
             this.BackgroundWorkTimerInterval = TimeSpan.FromSeconds(1);
             var process = new ExecutableProcess(this.BackgroundWorkTimerInterval, MyProcessToExecute);
             process.Start();
+
             // We specify this method to be executed every 1 srcond // DISPLAYED IN LABEL
             this.LabelTimerInterval = TimeSpan.FromSeconds(1);
             newProcess = new ExecutableProcess(this.LabelTimerInterval, LabelTimer);
@@ -38,14 +42,17 @@ namespace SimpleTimer
         {
             newProcess.TogglePause();
         }
-        DateTime SecondsAlreadyPassed = DateTime.Today;
+
+        DateTime SecondsAlreadyPassed = DateTime.Today.AddSeconds(StartFromSecConfProp * -1);
         private void LabelTimer()
         {
             this.SecondsAlreadyPassed = SecondsAlreadyPassed.AddSeconds(this.LabelTimerInterval.Seconds);
             CurrentTime = SecondsAlreadyPassed.ToString(@"hh\:mm\:ss"); // DateTime.Now.ToLongTimeString()
             DateTime RingTime = HelperClass.DateTimeConverter(HoursLimitProp);
+
             //Debug.WriteLine("Current time: " + CurrentTime);
             //Debug.WriteLine("Ring time: " + RingTime.ToLongTimeString());
+
             if (CurrentTime == RingTime.ToLongTimeString())
             {
                 PlaySound();
