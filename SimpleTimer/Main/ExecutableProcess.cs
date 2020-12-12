@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading;
-namespace SimpleTimer
+
+namespace SimpleTimer.Main
 {
     public class ExecutableProcess : IDisposable
     {

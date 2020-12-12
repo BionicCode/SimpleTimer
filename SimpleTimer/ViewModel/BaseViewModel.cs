@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace SimpleTimer
+namespace SimpleTimer.ViewModel
 {
     public class BaseViewModel : INotifyPropertyChanged
     {

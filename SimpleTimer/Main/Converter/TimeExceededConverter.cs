@@ -3,8 +3,8 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace SimpleTimer
-{
+namespace SimpleTimer.Main.Converter
+{ 
     class TimeExceededConverter : IValueConverter
     {
         #region IValueConverter Members

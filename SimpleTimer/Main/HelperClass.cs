@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 
-namespace SimpleTimer
+namespace SimpleTimer.Main
 {
     public static class HelperClass
     {

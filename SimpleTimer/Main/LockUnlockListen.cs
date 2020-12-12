@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Interop;
 
-namespace SimpleTimer
+namespace SimpleTimer.Main
 {
     public class Win32Session
     {

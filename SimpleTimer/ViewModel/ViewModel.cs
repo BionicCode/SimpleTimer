@@ -1,11 +1,9 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Diagnostics;
-using System.Globalization;
 using System.Windows.Input;
-using System.Windows.Threading;
 
-namespace SimpleTimer
+namespace SimpleTimer.ViewModel
 {
     public class ViewModel : BaseViewModel
     {
@@ -22,9 +20,9 @@ namespace SimpleTimer
 
         private TimeSpan BackgroundWorkTimerInterval { get; set; }
         private TimeSpan LabelTimerInterval { get; set; }
+
         public ViewModel()
         {
-            HoursLimitProp = (string)Properties.Appsettings.Default["TimeSetting"]; // (string)Properties.Appsettings.Default["TimeSetting"]
             //StartWorkingTimeTodayTimer();
             SystemEvents.SessionSwitch += new SessionSwitchEventHandler(SystemEvents_SessionSwitch);
 

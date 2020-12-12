@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using SimpleTimer.ViewModel;
 
 namespace SimpleTimer
 {
@@ -16,8 +17,8 @@ namespace SimpleTimer
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Properties.Appsettings.Default["TimeSetting"] = HoursLimitBox.Text;
-            Properties.Appsettings.Default.Save();
+            //Properties.Appsettings.Default["TimeSetting"] = HoursLimitBox.Text;
+            //Properties.Appsettings.Default.Save();
         }
     }
 }
