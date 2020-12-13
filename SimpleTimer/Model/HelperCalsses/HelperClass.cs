@@ -37,7 +37,7 @@ namespace SimpleTimer.HelperClass
 
         public static TimeSpan ParseToTimeSpanRingTime()
         {
-            string TimeAsString = Model.Properties.Appsettings.Default["TimeSetting"];
+            string TimeAsString = Model.Properties.ApplicationSettings.Default["TimeSetting"];
 
             TimeSpan timeSpan = new TimeSpan(0, 0, 0, 0, 0);
 
