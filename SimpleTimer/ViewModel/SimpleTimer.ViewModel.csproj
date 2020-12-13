@@ -5,7 +5,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ResourceDictionaries\Dictionary1.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Win32.SystemEvents" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Include="ResourceDictionaries\Dictionary1.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Model\SimpleTimer.Model.csproj" />
   </ItemGroup>
 
 </Project>

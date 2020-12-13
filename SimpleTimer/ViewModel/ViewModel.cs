@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using SimpleTimer.HelperClass;
 using System;
 using System.Diagnostics;
 using System.Windows.Input;
@@ -7,6 +8,8 @@ namespace SimpleTimer.ViewModel
 {
     public class ViewModel : BaseViewModel
     {
+        //private ExecutableProcess ExecutableProcess { get; set; }
+
         // Set the timer offset to 50 seconds
         private static readonly TimeSpan StartFromSecConfProp = TimeSpan.FromSeconds(50);
         private TimeSpan SecondsAlreadyPassed = TimeSpan.Zero;
@@ -111,23 +114,6 @@ namespace SimpleTimer.ViewModel
                     _hoursLimit = value;
                     OnPropertyChanged();
                 }
-            }
-        }
-
-        private void PlaySound()
-        {
-            try
-            {
-                System.Media.SoundPlayer player = new System.Media.SoundPlayer(string.Concat(System.IO.Directory.GetCurrentDirectory(),
-                        @"\Miscellaneous\Sounds\bell.wav"));
-                player.Play();
-
-                Debug.WriteLine("+++++++++ bell ring +++++++++");
-
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
     }

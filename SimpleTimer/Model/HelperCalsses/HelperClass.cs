@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 
-namespace SimpleTimer.Main
+namespace SimpleTimer.HelperClass
 {
     public static class HelperClass
     {
@@ -36,7 +37,7 @@ namespace SimpleTimer.Main
 
         public static TimeSpan ParseToTimeSpanRingTime()
         {
-            string TimeAsString = (string)Properties.Appsettings.Default["TimeSetting"];
+            string TimeAsString = Model.Properties.Appsettings.Default["TimeSetting"];
 
             TimeSpan timeSpan = new TimeSpan(0, 0, 0, 0, 0);
 
@@ -49,6 +50,23 @@ namespace SimpleTimer.Main
             //Debug.WriteLine("Ring time: " + timeSpan);
 
             return timeSpan;
+        }
+
+        private static void PlaySound()
+        {
+            try
+            {
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(string.Concat(System.IO.Directory.GetCurrentDirectory(),
+                        @"\Miscellaneous\Sounds\bell.wav"));
+                player.Play();
+
+                Debug.WriteLine("+++++++++ bell ring +++++++++");
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

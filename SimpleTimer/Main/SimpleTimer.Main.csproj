@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Resource\SimpleTimer.Resource.csproj" />
     <ProjectReference Include="..\ViewModel\SimpleTimer.ViewModel.csproj" />
   </ItemGroup>
 
@@ -19,9 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Miscellaneous\Sounds\bell.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Properties\Appsettings.settings">
       <LastGenOutput>Appsettings.Designer.cs</LastGenOutput>
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -32,9 +30,6 @@
     <Page Update="MainWindow.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="ResourceDictionaries\Dictionary1.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
   </ItemGroup>
 

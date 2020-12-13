@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Threading;
 
-namespace SimpleTimer.Main
+namespace SimpleTimer.HelperClass
 {
     public class ExecutableProcess : IDisposable
     {
