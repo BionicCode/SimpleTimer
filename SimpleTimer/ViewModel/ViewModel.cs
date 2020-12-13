@@ -65,13 +65,8 @@ namespace SimpleTimer.ViewModels
             {
                 // BUG::Not implemented.
                 // FIX::Created method. Implementation pending.
-                PlaySound();
+                HelperClass.PlaySound();
             }
-        }
-
-        private void PlaySound()
-        {
-            throw new NotImplementedException();
         }
 
         private static void MyProcessToExecute()

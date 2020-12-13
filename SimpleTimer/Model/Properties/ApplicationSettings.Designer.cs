@@ -25,19 +25,7 @@ namespace SimpleTimer.Models.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("00:05")]
-        public string TimeSpent {
-            get {
-                return ((string)(this["TimeSpent"]));
-            }
-            set {
-                this["TimeSpent"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("00:01")]
         public string TimeSetting {
             get {
                 return ((string)(this["TimeSetting"]));

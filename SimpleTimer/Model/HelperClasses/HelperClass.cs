@@ -56,7 +56,7 @@ namespace SimpleTimer.Models.HelperClasses
             return timeSpan;
         }
 
-        private static void PlaySound()
+        public static void PlaySound()
         {
             try
             {
