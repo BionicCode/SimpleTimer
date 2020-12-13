@@ -2,7 +2,7 @@
 using System.Collections.Specialized;
 using System.Configuration;
 
-namespace BionicCode.Utilities.Net.Framework.Wpf.Settings
+namespace SimpleTimer.HelperClass
 {
     /// <summary>
     /// Exposes a basic static API to access the AppSettings file in order to manage application settings. 

@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Windows.Input;
 
-namespace SimpleTimer
+namespace SimpleTimer.ViewModel
 {
     public class RelayCommand : ICommand
     {
