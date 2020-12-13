@@ -5,11 +5,11 @@ VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleTimer.Main", "Main\SimpleTimer.Main.csproj", "{841CBBC9-FF9A-4057-93BC-4731EC4F764B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleTimer.ViewModel", "ViewModel\SimpleTimer.ViewModel.csproj", "{48234701-18E6-4557-9AF0-212F34A8517D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleTimer.ViewModels", "ViewModel\SimpleTimer.ViewModels.csproj", "{48234701-18E6-4557-9AF0-212F34A8517D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTimer.Model", "Model\SimpleTimer.Model.csproj", "{1796227C-279E-438E-8063-78A4D553B5F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleTimer.Models", "Model\SimpleTimer.Models.csproj", "{1796227C-279E-438E-8063-78A4D553B5F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTimer.Resource", "Resource\SimpleTimer.Resource.csproj", "{64AD93F0-82DA-4B62-BF0E-A5AF0F3C70B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleTimer.Resources", "Resource\SimpleTimer.Resources.csproj", "{64AD93F0-82DA-4B62-BF0E-A5AF0F3C70B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

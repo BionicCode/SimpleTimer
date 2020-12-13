@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Resource\SimpleTimer.Resource.csproj" />
-    <ProjectReference Include="..\ViewModel\SimpleTimer.ViewModel.csproj" />
+    <ProjectReference Include="..\Resource\SimpleTimer.Resources.csproj" />
+    <ProjectReference Include="..\ViewModel\SimpleTimer.ViewModels.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SimpleTimer.HelperClass
+﻿namespace SimpleTimer.Models.HelperClasses
 {
     public class Win32Session
     {

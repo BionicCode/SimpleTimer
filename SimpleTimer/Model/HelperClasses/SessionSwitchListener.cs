@@ -1,8 +1,4 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Diagnostics;
-
-namespace SimpleTimer.HelperClass
+﻿namespace SimpleTimer.Models.HelperClasses
 {
     class SessionSwitchListener
     {

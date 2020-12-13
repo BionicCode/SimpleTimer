@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Model\SimpleTimer.Model.csproj" />
+    <ProjectReference Include="..\Model\SimpleTimer.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -2,11 +2,14 @@
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
-using SimpleTimer.HelperClass;
+using SimpleTimer.Models.HelperClasses;
 
-namespace SimpleTimer.Resource
+namespace SimpleTimer.Resources.Converter
 { 
-    class TimeExceededConverter : IValueConverter
+    // BUG::2:Class access modifier is internal. In order to use this class outside this assembly e.g. in Main this class must be public
+    // FIX::2.1: Make class public
+    // class TimeExceededConverter : IValueConverter
+    public class TimeExceededConverter : IValueConverter
     {
         #region IValueConverter Members
 
@@ -17,7 +20,9 @@ namespace SimpleTimer.Resource
             TimeSpan res;
             var result = TimeSpan.TryParseExact(HoursLimitProp, @"hh\:mm\:ss", CultureInfo.InvariantCulture, out res);
 
-            TimeSpan RingTime = HelperClass.ParseToTimeSpanRingTime();
+      // BUG::Missing import.
+      // FIX::Add using SimpleTimer.Model.HelperClasses
+      TimeSpan RingTime = HelperClass.ParseToTimeSpanRingTime();
 
             if (res > RingTime)
             {

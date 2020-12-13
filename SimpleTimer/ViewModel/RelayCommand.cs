@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Windows.Input;
 
-namespace SimpleTimer.ViewModel
+namespace SimpleTimer.ViewModels
 {
     public class RelayCommand : ICommand
     {
@@ -25,12 +25,28 @@ namespace SimpleTimer.ViewModel
         {
             return this._canExecute == null ? true : this._canExecute(parameter);
         }
-        public event EventHandler CanExecuteChanged
+    //public event EventHandler CanExecuteChanged
+    //{
+    // BUG1::CommandManager is class of the WPF framework
+    // FIX::1.1:Either turn the assembly into a WPF library (by adding all required references e.g. PresentationFramework.dll etc.) or implement basic event styl
+    //            add { CommandManager.RequerySuggested += value; }
+    //            remove { CommandManager.RequerySuggested -= value; }
+    //}
+
+    // FIX::1.2: Define classic event without using CommandManager. CommandManger implements a WPF
+    // infrastructure that automatically invokes the CanExecuteChnaged event on certain occasions.
+    // Since we are now implementing plain CLR event,
+    // we must take care to raise this event manually when ever any changes, that affect the CanExecute condition have occurred.
+    // To raise the event use the new public InvalidateCommand method:
+    public event EventHandler CanExecuteChanged;
+        protected virtual void OnCanExecuteChanged()
         {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
+            this.CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
+
+        public void InvalidateCommand() => OnCanExecuteChanged();
         public void Execute(object parameter) { this._execute(parameter); }
         #endregion // ICommand Members 
+
     }
 }
