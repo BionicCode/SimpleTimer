@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 
-namespace SimpleTimer.HelperClass
+namespace SimpleTimer.Models.HelperClasses
 {
     public static class HelperClass
     {
@@ -37,13 +36,18 @@ namespace SimpleTimer.HelperClass
 
         public static TimeSpan ParseToTimeSpanRingTime()
         {
-            string TimeAsString = Model.Properties.ApplicationSettings.Default["TimeSetting"];
+      // BUG::Wrong return type/wrong variable type
+      // BUG::No entry "TimeSetting" in settings file --> exception (I have added it)
+      // BUG::Violating  naming convention (StyleCopy should complain here). Local variable names are camelCase and not PascalCase: timeAsString and not TimeAsString
+      // TODO::Remove commented bug code
+      //string TimeAsString = Model.Properties.ApplicationSettings.Default["TimeSetting"];
+      string timeAsString = Properties.ApplicationSettings.Default["TimeSetting"] as string;
 
             TimeSpan timeSpan = new TimeSpan(0, 0, 0, 0, 0);
 
-            if (!string.IsNullOrEmpty(TimeAsString))
+            if (!string.IsNullOrEmpty(timeAsString))
             {
-                List<int> TimeSplit = TimeAsString.Split(':').Where(x => int.TryParse(x, out _)).Select(int.Parse).ToList();
+                List<int> TimeSplit = timeAsString.Split(':').Where(x => int.TryParse(x, out _)).Select(int.Parse).ToList();
                 timeSpan = new TimeSpan(0, TimeSplit[0], TimeSplit[1], 0, 0);
             }
 

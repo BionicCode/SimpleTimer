@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Threading;
 
-namespace SimpleTimer.HelperClass
+namespace SimpleTimer.Models.HelperClasses
 {
     public class ExecutableProcess : IDisposable
     {
@@ -14,22 +14,22 @@ namespace SimpleTimer.HelperClass
         public ExecutableProcess(TimeSpan intervalSeconds, Action process)
         {
             this.Interval = intervalSeconds;
-            processToRun = process;
-            processTimer = new Timer(TimedProcess);
+            this.processToRun = process;
+            this.processTimer = new Timer(TimedProcess);
             this.canStart = true;
         }
         public void Start()
         {
-            if (canStart)
+            if (this.canStart)
             {
-                canStart = false;
-                IsPaused = false;
-                processTimer.Change(0, (int)this.Interval.TotalMilliseconds);
+                this.canStart = false;
+                this.IsPaused = false;
+                this.processTimer.Change(0, (int)this.Interval.TotalMilliseconds);
             }
         }
         public void TogglePause()
         {
-            if (IsPaused)
+            if (this.IsPaused)
             {
                 Debug.WriteLine("RESUMEEE");
                 Start();
@@ -38,17 +38,17 @@ namespace SimpleTimer.HelperClass
             {
                 Debug.WriteLine("PAUSEEE");
                 Stop();
-                IsPaused = true;
+                this.IsPaused = true;
             }
         }
         public void Stop()
         {
-            processTimer.Change(Timeout.Infinite, Timeout.Infinite);
+            this.processTimer.Change(Timeout.Infinite, Timeout.Infinite);
             this.canStart = true;
         }
         public void TimedProcess(object state)
         {
-            processToRun?.Invoke();
+            this.processToRun?.Invoke();
         }
         #region IDisposable
         protected virtual void Dispose(bool disposing)

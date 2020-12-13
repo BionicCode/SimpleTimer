@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:SimpleTimer" >
+                    xmlns:local="clr-namespace:SimpleTimer"
+                    xmlns:converter="clr-namespace:SimpleTimer.Resources.Converter">
 
     <!--PLAY BUTTON-->
 
@@ -33,7 +34,8 @@
 
     <Style TargetType="{x:Type ContentControl}" x:Key="ClockTimeExceeded_icon">
         <Style.Resources>
-            <local:TimeExceededConverter x:Key="TimeExceededConverter"/>
+            <!--BUG::Missing import/unknown namespace -->
+            <converter:TimeExceededConverter x:Key="TimeExceededConverter"/>
         </Style.Resources>
         <Setter Property="ContentTemplate">
             <Setter.Value>

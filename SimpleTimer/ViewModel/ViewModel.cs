@@ -1,10 +1,10 @@
-﻿using Microsoft.Win32;
-using SimpleTimer.HelperClass;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Windows.Input;
+using Microsoft.Win32;
+using SimpleTimer.Models.HelperClasses;
 
-namespace SimpleTimer.ViewModel
+namespace SimpleTimer.ViewModels
 {
     public class ViewModel : BaseViewModel
     {
@@ -17,7 +17,7 @@ namespace SimpleTimer.ViewModel
         private static Action _timerAction;
         private static TimeSpan SecondsBetweenRun;
         //ExecutableProcess executableProcess = new ExecutableProcess();
-        ExecutableProcess newProcess = new ExecutableProcess(SecondsBetweenRun, _timerAction);
+        ExecutableProcess newProcess = new ExecutableProcess(ViewModel.SecondsBetweenRun, ViewModel._timerAction);
 
         public ICommand PauseTimerCommand => new RelayCommand(param => PauseTimer());
 
@@ -27,40 +27,51 @@ namespace SimpleTimer.ViewModel
         public ViewModel()
         {
             //StartWorkingTimeTodayTimer();
+            // INFO::This is an application/system event. it should be handled at higher levels e.g. App.xaml.cs. App.xaml.cs also handles unhandled exceptions etc. It has a global/application scope which is more suited to listen to system event from an architectural point of view. If you are interested I can show you how to bootstrap your application manually. It's quite simple (I promise) and is a next step before trying Dependency Injection, which you can't avoid very much longer :) 
+            // Time to approach new stages. You are ready in my opinion.
             SystemEvents.SessionSwitch += new SessionSwitchEventHandler(SystemEvents_SessionSwitch);
 
             // Initialize the current time elapsed field by adding the offset
-            this.SecondsAlreadyPassed = this.SecondsAlreadyPassed.Add(StartFromSecConfProp);
+            this.SecondsAlreadyPassed = this.SecondsAlreadyPassed.Add(ViewModel.StartFromSecConfProp);
 
             // We specify this method to be executed every 1 srcond // BACKGROUND WORK
             this.BackgroundWorkTimerInterval = TimeSpan.FromSeconds(1);
-            var process = new ExecutableProcess(this.BackgroundWorkTimerInterval, MyProcessToExecute);
+            var process = new ExecutableProcess(this.BackgroundWorkTimerInterval, ViewModel.MyProcessToExecute);
             process.Start();
 
             // We specify this method to be executed every 1 srcond // DISPLAYED IN LABEL
             this.LabelTimerInterval = TimeSpan.FromSeconds(1);
-            newProcess = new ExecutableProcess(this.LabelTimerInterval, LabelTimer);
-            newProcess.Start();
+            this.newProcess = new ExecutableProcess(this.LabelTimerInterval, LabelTimer);
+            this.newProcess.Start();
         }
         private void PauseTimer()
         {
-            newProcess.TogglePause();
+            this.newProcess.TogglePause();
         }
 
         private void LabelTimer()
         {
             this.SecondsAlreadyPassed = this.SecondsAlreadyPassed.Add(this.LabelTimerInterval);
-            CurrentTime = this.SecondsAlreadyPassed.ToString(@"hh\:mm\:ss"); // DateTime.Now.ToLongTimeString()
+            this.CurrentTime = this.SecondsAlreadyPassed.ToString(@"hh\:mm\:ss"); // DateTime.Now.ToLongTimeString()
 
-            DateTime RingTime = HelperClass.DateTimeConverter(HoursLimitProp);
+      // BUG::Wrong namespace. After refactoring (moving types to new projects/folders) you forgot to adjust the namespaces, so the type DateTimeConverter could not be resolved.
+      // Old namespace: SimpleTimer.HelperClass. Fixed namespace:SimpleTimer.Model.HelperClass. I lived up to the occasion to rename the namespace/folder from ..Calsses to ..Classes (fixed typo)
+      DateTime RingTime = HelperClass.DateTimeConverter(this.HoursLimitProp);
 
             //Debug.WriteLine("Current time: " + CurrentTime);
             //Debug.WriteLine("Ring time: " + RingTime.ToLongTimeString());
 
-            if (CurrentTime == RingTime.ToLongTimeString())
+            if (this.CurrentTime == RingTime.ToLongTimeString())
             {
+                // BUG::Not implemented.
+                // FIX::Created method. Implementation pending.
                 PlaySound();
             }
+        }
+
+        private void PlaySound()
+        {
+            throw new NotImplementedException();
         }
 
         private static void MyProcessToExecute()
@@ -73,12 +84,12 @@ namespace SimpleTimer.ViewModel
             if (e.Reason == SessionSwitchReason.SessionLock)
             {
                 Debug.Print("I am locked: " + DateTime.Now);
-                newProcess.TogglePause();
+                this.newProcess.TogglePause();
             }
             else if (e.Reason == SessionSwitchReason.SessionUnlock)
             {
                 Debug.Print("I am unlocked: " + DateTime.Now);
-                newProcess.TogglePause();
+                this.newProcess.TogglePause();
             }
         }
 
@@ -95,9 +106,10 @@ namespace SimpleTimer.ViewModel
             }
             set
             {
-                if (_currentTime == value)
+                // BUG::Use always curly braces to prevent difficult to find bugs!! I wonder StyleCop is not complaining...
+                if (this._currentTime == value)
                     return;
-                _currentTime = value;
+                this._currentTime = value;
                 OnPropertyChanged();
             }
         }
@@ -106,12 +118,12 @@ namespace SimpleTimer.ViewModel
 
         public string HoursLimitProp
         {
-            get { return _hoursLimit; }
+            get { return this._hoursLimit; }
             set
             {
-                if (_hoursLimit != value)
+                if (this._hoursLimit != value)
                 {
-                    _hoursLimit = value;
+                    this._hoursLimit = value;
                     OnPropertyChanged();
                 }
             }

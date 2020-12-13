@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SimpleTimer.Model.Properties {
+namespace SimpleTimer.Models.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -32,6 +32,18 @@ namespace SimpleTimer.Model.Properties {
             }
             set {
                 this["TimeSpent"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TimeSetting {
+            get {
+                return ((string)(this["TimeSetting"]));
+            }
+            set {
+                this["TimeSetting"] = value;
             }
         }
     }
