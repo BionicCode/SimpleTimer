@@ -8,10 +8,20 @@
         Title="SettingsExampleMainView" Height="450" Width="800"
         d:DataContext="{d:DesignInstance Type=local:SettingsExampleMainView,
     IsDesignTimeCreatable=True}">
-    <StackPanel>
+  <StackPanel>
     <TextBox Text="{Binding UserAlias}"/>
     <TextBox Text="{Binding UserEmail}"/>
-    <TextBlock Text="{Binding LastLoginDisplay}"/>
+    <Border x:Name="HighlightBorder" BorderThickness="5" BorderBrush="Transparent">
+      <TextBlock Text="{Binding LastLoginDisplay}" /></Border>
     <Button Content="Login" Command="{Binding LoginCommand}"/>
-    </StackPanel>
+    <StackPanel.Triggers>
+      <EventTrigger RoutedEvent="Button.Click">
+        <BeginStoryboard>
+          <Storyboard>
+            <ColorAnimation Storyboard.TargetName="HighlightBorder" Storyboard.TargetProperty="BorderBrush.(SolidColorBrush.Color)" From="GreenYellow" To="Transparent"/>
+          </Storyboard>
+        </BeginStoryboard>
+      </EventTrigger>
+    </StackPanel.Triggers>
+  </StackPanel>
 </Window>
