@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SimpleTimer.Main"
+        xmlns:viewModels="clr-namespace:SimpleTimer.ViewModels;assembly=SimpleTimer.ViewModels"
         mc:Ignorable="d"
         Title="SettingsExampleMainView" Height="450" Width="800"
-        d:DataContext="{d:DesignInstance Type=local:SettingsExampleMainView,
+        d:DataContext="{d:DesignInstance Type=viewModels:SettingsExampleViewModel,
     IsDesignTimeCreatable=True}">
   <StackPanel>
     <TextBox Text="{Binding UserAlias}"/>
