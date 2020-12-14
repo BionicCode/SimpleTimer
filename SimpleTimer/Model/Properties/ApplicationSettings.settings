@@ -2,8 +2,14 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SimpleTimer.Models.Properties" GeneratedClassName="ApplicationSettings">
   <Profiles />
   <Settings>
-    <Setting Name="TimeSetting" Type="System.String" Scope="User">
-      <Value Profile="(Default)">00:01</Value>
+    <Setting Name="userAlias" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="userEmail" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="lastLoginTimeStamp" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

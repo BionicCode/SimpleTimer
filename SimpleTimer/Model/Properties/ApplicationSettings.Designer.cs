@@ -25,13 +25,36 @@ namespace SimpleTimer.Models.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("00:01")]
-        public string TimeSetting {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string userAlias {
             get {
-                return ((string)(this["TimeSetting"]));
+                return ((string)(this["userAlias"]));
             }
             set {
-                this["TimeSetting"] = value;
+                this["userAlias"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string userEmail {
+            get {
+                return ((string)(this["userEmail"]));
+            }
+            set {
+                this["userEmail"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.DateTime lastLoginTimeStamp {
+            get {
+                return ((global::System.DateTime)(this["lastLoginTimeStamp"]));
+            }
+            set {
+                this["lastLoginTimeStamp"] = value;
             }
         }
     }
