@@ -11,7 +11,7 @@
     <StackPanel>
     <TextBox Text="{Binding UserAlias}"/>
     <TextBox Text="{Binding UserEmail}"/>
-    <TextBox Text="{Binding LastLoginDisplay}"/>
+    <TextBlock Text="{Binding LastLoginDisplay}"/>
     <Button Content="Login" Command="{Binding LoginCommand}"/>
     </StackPanel>
 </Window>
