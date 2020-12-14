@@ -11,7 +11,8 @@ namespace SimpleTimer.Main
     /// </summary>
     public partial class App : Application
     {
-        ViewModel VM = new ViewModel();
+        //ViewModel VM = new ViewModel();
+        private ViewModel ViewModel { get; }
 
         public App()
         {
@@ -26,12 +27,12 @@ namespace SimpleTimer.Main
             if (e.Reason == SessionSwitchReason.SessionLock)
             {
                 Debug.Print("I am locked: " + DateTime.Now);
-                VM.newProcess.TogglePause();
+                ViewModel.newProcess.TogglePause();
             }
             else if (e.Reason == SessionSwitchReason.SessionUnlock)
             {
                 Debug.Print("I am unlocked: " + DateTime.Now);
-                VM.newProcess.TogglePause();
+                ViewModel.newProcess.TogglePause();
             }
         }
     }
