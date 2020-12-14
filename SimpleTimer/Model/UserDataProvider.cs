@@ -6,7 +6,7 @@ namespace SimpleTimer.Models
 {
   public class UserDataProvider : IUserDataProvider
   {
-    private SettingsConnector SettingsConnector { get; set; }
+    private ISettingsConnector SettingsConnector { get; set; }
 
     public UserDataProvider()
     {
