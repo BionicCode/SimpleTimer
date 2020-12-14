@@ -17,7 +17,7 @@ namespace SimpleTimer.ViewModels
         private static Action _timerAction;
         private static TimeSpan SecondsBetweenRun;
         //ExecutableProcess executableProcess = new ExecutableProcess();
-        ExecutableProcess newProcess = new ExecutableProcess(ViewModel.SecondsBetweenRun, ViewModel._timerAction);
+        public ExecutableProcess newProcess = new ExecutableProcess(ViewModel.SecondsBetweenRun, ViewModel._timerAction);
 
         public ICommand PauseTimerCommand => new RelayCommand(param => PauseTimer());
 
@@ -26,11 +26,6 @@ namespace SimpleTimer.ViewModels
 
         public ViewModel()
         {
-            //StartWorkingTimeTodayTimer();
-            // INFO::This is an application/system event. it should be handled at higher levels e.g. App.xaml.cs. App.xaml.cs also handles unhandled exceptions etc. It has a global/application scope which is more suited to listen to system event from an architectural point of view. If you are interested I can show you how to bootstrap your application manually. It's quite simple (I promise) and is a next step before trying Dependency Injection, which you can't avoid very much longer :) 
-            // Time to approach new stages. You are ready in my opinion.
-            SystemEvents.SessionSwitch += new SessionSwitchEventHandler(SystemEvents_SessionSwitch);
-
             // Initialize the current time elapsed field by adding the offset
             this.SecondsAlreadyPassed = this.SecondsAlreadyPassed.Add(ViewModel.StartFromSecConfProp);
 
@@ -54,9 +49,11 @@ namespace SimpleTimer.ViewModels
             this.SecondsAlreadyPassed = this.SecondsAlreadyPassed.Add(this.LabelTimerInterval);
             this.CurrentTime = this.SecondsAlreadyPassed.ToString(@"hh\:mm\:ss"); // DateTime.Now.ToLongTimeString()
 
-      // BUG::Wrong namespace. After refactoring (moving types to new projects/folders) you forgot to adjust the namespaces, so the type DateTimeConverter could not be resolved.
-      // Old namespace: SimpleTimer.HelperClass. Fixed namespace:SimpleTimer.Model.HelperClass. I lived up to the occasion to rename the namespace/folder from ..Calsses to ..Classes (fixed typo)
-      DateTime RingTime = HelperClass.DateTimeConverter(this.HoursLimitProp);
+            // BUG::Wrong namespace. After refactoring (moving types to new projects/folders) you forgot to adjust the namespaces, 
+            // so the type DateTimeConverter could not be resolved.
+            // Old namespace: SimpleTimer.HelperClass. Fixed namespace:SimpleTimer.Model.HelperClass. I lived up to the occasion 
+            // to rename the namespace/folder from ..Calsses to ..Classes (fixed typo)
+            DateTime RingTime = HelperClass.DateTimeConverter(this.HoursLimitProp);
 
             //Debug.WriteLine("Current time: " + CurrentTime);
             //Debug.WriteLine("Ring time: " + RingTime.ToLongTimeString());
@@ -72,20 +69,6 @@ namespace SimpleTimer.ViewModels
         private static void MyProcessToExecute()
         {
             Debug.Write($"Running {DateTime.Now}" + "\n");
-        }
-
-        void SystemEvents_SessionSwitch(object sender, SessionSwitchEventArgs e)
-        {
-            if (e.Reason == SessionSwitchReason.SessionLock)
-            {
-                Debug.Print("I am locked: " + DateTime.Now);
-                this.newProcess.TogglePause();
-            }
-            else if (e.Reason == SessionSwitchReason.SessionUnlock)
-            {
-                Debug.Print("I am unlocked: " + DateTime.Now);
-                this.newProcess.TogglePause();
-            }
         }
 
         /// <summary>
