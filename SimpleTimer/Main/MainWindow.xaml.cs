@@ -8,6 +8,8 @@ namespace SimpleTimer.Main
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ViewModel ViewModel { get; }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -19,8 +21,7 @@ namespace SimpleTimer.Main
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //Properties.Appsettings.Default["TimeSetting"] = HoursLimitBox.Text;
-            //Properties.Appsettings.Default.Save();
+            ViewModel.UpdateTimeLimit();
         }
     }
 }

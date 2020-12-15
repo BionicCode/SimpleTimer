@@ -19,17 +19,20 @@ namespace SimpleTimer.ViewModels
 
         private static Action _timerAction;
         private static TimeSpan SecondsBetweenRun;
-        //ExecutableProcess executableProcess = new ExecutableProcess();
+
+        // ExecutableProcess executableProcess = new ExecutableProcess();
         public ExecutableProcess newProcess = new ExecutableProcess(ViewModel.SecondsBetweenRun, ViewModel._timerAction);
 
         public ICommand PauseTimerCommand => new RelayCommand(param => PauseTimer());
+
+        public ICommand UpdateTimeLimitCommand => new RelayCommand(param => UpdateTimeLimit());
 
         private TimeSpan BackgroundWorkTimerInterval { get; set; }
         private TimeSpan LabelTimerInterval { get; set; }
 
         private IGeneralDataProvider GeneralDataProvider { get; }
 
-        private void UpdateTimeLimit() => this.GeneralDataProvider.SetTimeLimit(this.HoursLimitProp);
+        public void UpdateTimeLimit() => this.GeneralDataProvider.SetTimeLimit(this.HoursLimitProp);
 
         public ViewModel(IGeneralDataProvider generalDataProvider)
         {
@@ -47,6 +50,8 @@ namespace SimpleTimer.ViewModels
             this.LabelTimerInterval = TimeSpan.FromSeconds(1);
             this.newProcess = new ExecutableProcess(this.LabelTimerInterval, LabelTimer);
             this.newProcess.Start();
+
+            Initialize();
         }
 
         private void Initialize()

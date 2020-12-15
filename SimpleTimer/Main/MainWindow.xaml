@@ -39,7 +39,7 @@
                             Foreground="{Binding Path=CurrentTime, Converter={StaticResource TimeExceededConverter}}" Margin="10" />
         </Viewbox>
         <Button Content="Update" HorizontalAlignment="Left" Height="36" Margin="317,10,0,0" VerticalAlignment="Top" Width="97" 
-                Click="Button_Click" Background="Black" Foreground="White" FontWeight="Bold">
+                Background="Black" Foreground="White" FontWeight="Bold" Command="{Binding UpdateTimeLimitCommand}">
             <Button.Style>
                 <Style TargetType="Button">
                     <Style.Triggers>
