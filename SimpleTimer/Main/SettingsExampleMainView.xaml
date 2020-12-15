@@ -1,0 +1,28 @@
+﻿<Window x:Class="SimpleTimer.Main.SettingsExampleMainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SimpleTimer.Main"
+        xmlns:viewModels="clr-namespace:SimpleTimer.ViewModels;assembly=SimpleTimer.ViewModels"
+        mc:Ignorable="d"
+        Title="SettingsExampleMainView" Height="450" Width="800"
+        d:DataContext="{d:DesignInstance Type=viewModels:SettingsExampleViewModel,
+    IsDesignTimeCreatable=True}">
+  <StackPanel>
+    <TextBox Text="{Binding UserAlias}"/>
+    <TextBox Text="{Binding UserEmail}"/>
+    <Border x:Name="HighlightBorder" BorderThickness="5" BorderBrush="Transparent">
+      <TextBlock Text="{Binding LastLoginDisplay}" /></Border>
+    <Button Content="Login" Command="{Binding LoginCommand}"/>
+    <StackPanel.Triggers>
+      <EventTrigger RoutedEvent="Button.Click">
+        <BeginStoryboard>
+          <Storyboard>
+            <ColorAnimation Storyboard.TargetName="HighlightBorder" Storyboard.TargetProperty="BorderBrush.(SolidColorBrush.Color)" From="GreenYellow" To="Transparent"/>
+          </Storyboard>
+        </BeginStoryboard>
+      </EventTrigger>
+    </StackPanel.Triggers>
+  </StackPanel>
+</Window>
