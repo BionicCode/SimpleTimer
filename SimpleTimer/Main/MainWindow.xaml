@@ -85,7 +85,7 @@
                                                     <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
                                                                 Storyboard.TargetName="a"
                                                                 From="#FFB2C6F3" To="#FFFF9700" 
-                                                                Duration="0:0:0.5" BeginTime="0:0:0.1" />
+                                                                Duration="0:0:0.5" BeginTime="0:0:0.5" />
                                                     <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
                                                                 Storyboard.TargetName="b"
                                                                 From="#FFB2C6F3" To="#FFFF9700" 
@@ -93,19 +93,19 @@
                                                     <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
                                                                 Storyboard.TargetName="c"
                                                                 From="#FFB2C6F3" To="#FFFF9700" 
-                                                                Duration="0:0:0.5" BeginTime="0:0:2" />
+                                                                Duration="0:0:0.5" BeginTime="0:0:1.5" />
                                                     <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
                                                                 Storyboard.TargetName="d"
                                                                 From="#FFB2C6F3" To="#FFFF9700" 
-                                                                Duration="0:0:0.5" BeginTime="0:0:3" />
+                                                                Duration="0:0:0.5" BeginTime="0:0:2" />
                                                     <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
                                                                 Storyboard.TargetName="e"
                                                                 From="#FFB2C6F3" To="#FFFF9700" 
-                                                                Duration="0:0:0.5" BeginTime="0:0:4" />
+                                                                Duration="0:0:0.5" BeginTime="0:0:2.5" />
                                                     <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
                                                                 Storyboard.TargetName="f"
                                                                 From="#FFB2C6F3" To="#FFFF9700" 
-                                                                Duration="0:0:0.5" BeginTime="0:0:5" />
+                                                                Duration="0:0:0.5" BeginTime="0:0:3" />
                                                 </Storyboard>
                                             </BeginStoryboard>
                                         </EventTrigger>
@@ -113,29 +113,29 @@
                                             <BeginStoryboard>
                                                 <Storyboard>
                                                     <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
-                                                                Storyboard.TargetName="d"
+                                                                Storyboard.TargetName="f"
                                                                 From="#FFFF9700" To="#FFB2C6F3"
-                                                                Duration="0:0:0.5"  BeginTime="0:0:0.1" />
-                                                    <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
-                                                                Storyboard.TargetName="c"
-                                                                From="#FFFF9700" To="#FFB2C6F3"
-                                                                Duration="0:0:0.5"  BeginTime="0:0:1" />
-                                                    <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
-                                                                Storyboard.TargetName="b"
-                                                                From="#FFFF9700" To="#FFB2C6F3"
-                                                                Duration="0:0:0.5"  BeginTime="0:0:2" />
-                                                    <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
-                                                                Storyboard.TargetName="a"
-                                                                From="#FFFF9700" To="#FFB2C6F3"
-                                                                Duration="0:0:0.5"  BeginTime="0:0:3" />
+                                                                Duration="0:0:0.5"  BeginTime="0:0:0.5" />
                                                     <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
                                                                 Storyboard.TargetName="e"
                                                                 From="#FFFF9700" To="#FFB2C6F3"
-                                                                Duration="0:0:0.5" BeginTime="0:0:4" />
+                                                                Duration="0:0:0.5"  BeginTime="0:0:1" />
                                                     <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
-                                                                Storyboard.TargetName="f"
+                                                                Storyboard.TargetName="d"
                                                                 From="#FFFF9700" To="#FFB2C6F3"
-                                                                Duration="0:0:0.5" BeginTime="0:0:5" />
+                                                                Duration="0:0:0.5"  BeginTime="0:0:1.5" />
+                                                    <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
+                                                                Storyboard.TargetName="c"
+                                                                From="#FFFF9700" To="#FFB2C6F3"
+                                                                Duration="0:0:0.5"  BeginTime="0:0:2" />
+                                                    <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
+                                                                Storyboard.TargetName="b"
+                                                                From="#FFFF9700" To="#FFB2C6F3"
+                                                                Duration="0:0:0.5" BeginTime="0:0:2.5" />
+                                                    <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
+                                                                Storyboard.TargetName="a"
+                                                                From="#FFFF9700" To="#FFB2C6F3"
+                                                                Duration="0:0:0.5" BeginTime="0:0:3" />
                                                 </Storyboard>
                                             </BeginStoryboard>
                                         </EventTrigger>
@@ -174,7 +174,7 @@
                                                     <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
                                                                 Storyboard.TargetName="a"
                                                                 From="#FFB2C6F3" To="#FFFF9700" 
-                                                                Duration="0:0:0.5" BeginTime="0:0:0.1" />
+                                                                Duration="0:0:0.5" BeginTime="0:0:0.5" />
                                                     <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
                                                                 Storyboard.TargetName="b"
                                                                 From="#FFB2C6F3" To="#FFFF9700" 
@@ -182,15 +182,15 @@
                                                     <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
                                                                 Storyboard.TargetName="c"
                                                                 From="#FFB2C6F3" To="#FFFF9700" 
-                                                                Duration="0:0:0.5" BeginTime="0:0:2" />
+                                                                Duration="0:0:0.5" BeginTime="0:0:1.5" />
                                                     <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
                                                                 Storyboard.TargetName="d"
                                                                 From="#FFB2C6F3" To="#FFFF9700" 
-                                                                Duration="0:0:0.5" BeginTime="0:0:3" />
+                                                                Duration="0:0:0.5" BeginTime="0:0:2" />
                                                     <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
                                                                 Storyboard.TargetName="e"
                                                                 From="#FFB2C6F3" To="#FFFF9700" 
-                                                                Duration="0:0:0.5" BeginTime="0:0:4" />
+                                                                Duration="0:0:0.5" BeginTime="0:0:2.5" />
                                                 </Storyboard>
                                             </BeginStoryboard>
                                         </EventTrigger>
@@ -198,13 +198,17 @@
                                             <BeginStoryboard>
                                                 <Storyboard>
                                                     <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
+                                                                Storyboard.TargetName="e"
+                                                                From="#FFFF9700" To="#FFB2C6F3"
+                                                                Duration="0:0:0.5"  BeginTime="0:0:0.5" />
+                                                    <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
                                                                 Storyboard.TargetName="d"
                                                                 From="#FFFF9700" To="#FFB2C6F3"
-                                                                Duration="0:0:0.5"  BeginTime="0:0:0.1" />
+                                                                Duration="0:0:0.5"  BeginTime="0:0:1" />
                                                     <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
                                                                 Storyboard.TargetName="c"
                                                                 From="#FFFF9700" To="#FFB2C6F3"
-                                                                Duration="0:0:0.5"  BeginTime="0:0:1" />
+                                                                Duration="0:0:0.5"  BeginTime="0:0:1.5" />
                                                     <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
                                                                 Storyboard.TargetName="b"
                                                                 From="#FFFF9700" To="#FFB2C6F3"
@@ -212,11 +216,7 @@
                                                     <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
                                                                 Storyboard.TargetName="a"
                                                                 From="#FFFF9700" To="#FFB2C6F3"
-                                                                Duration="0:0:0.5"  BeginTime="0:0:3" />
-                                                    <ColorAnimation Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
-                                                                Storyboard.TargetName="e"
-                                                                From="#FFFF9700" To="#FFB2C6F3"
-                                                                Duration="0:0:0.5" BeginTime="0:0:4" />
+                                                                Duration="0:0:0.5" BeginTime="0:0:2.5" />
                                                 </Storyboard>
                                             </BeginStoryboard>
                                         </EventTrigger>

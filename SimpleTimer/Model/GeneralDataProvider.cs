@@ -20,6 +20,5 @@ namespace SimpleTimer.Models
 
         public void SetTimeLimit(string timeLimit) =>
             this.SettingsConnector.WriteString(Properties.StringResources.TimeLimit, timeLimit);
-
     }
 }
