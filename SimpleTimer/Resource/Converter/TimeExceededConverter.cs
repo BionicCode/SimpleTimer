@@ -30,7 +30,7 @@ namespace SimpleTimer.Resources.Converter
             }
             else
             {
-                return Brushes.Green;
+                return Brushes.LightGreen;
             }
 
         }

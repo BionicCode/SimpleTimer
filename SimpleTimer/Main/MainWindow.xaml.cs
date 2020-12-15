@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 using SimpleTimer.ViewModels;
 
 namespace SimpleTimer.Main
@@ -22,6 +23,12 @@ namespace SimpleTimer.Main
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.UpdateTimeLimit();
+        }
+
+        private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
         }
     }
 }
