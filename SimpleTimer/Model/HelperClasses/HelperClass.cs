@@ -41,7 +41,7 @@ namespace SimpleTimer.Models.HelperClasses
       // BUG::Violating  naming convention (StyleCopy should complain here). Local variable names are camelCase and not PascalCase: timeAsString and not TimeAsString
       // TODO::Remove commented bug code
       //string TimeAsString = Model.Properties.ApplicationSettings.Default["TimeSetting"];
-      string timeAsString = Properties.ApplicationSettings.Default["TimeSetting"] as string;
+      string timeAsString = Properties.ApplicationSettings.Default["TimeLimit"] as string;
 
             TimeSpan timeSpan = new TimeSpan(0, 0, 0, 0, 0);
 

@@ -120,6 +120,12 @@
   <data name="LastLoginTimeStamp" xml:space="preserve">
     <value>lastLoginTimeStamp</value>
   </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TimeLimit" xml:space="preserve">
+    <value>timeLimit</value>
+  </data>
   <data name="UserAlias" xml:space="preserve">
     <value>userAlias</value>
   </data>

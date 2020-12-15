@@ -23,7 +23,9 @@ namespace SimpleTimer.Main
         {
             SystemEvents.SessionSwitch += new SessionSwitchEventHandler(SystemEvents_SessionSwitch);
 
-            var mainWindow = new SettingsExampleMainView() {DataContext = new SettingsExampleViewModel(new UserDataProvider())};
+            var mainWindow = new MainWindow() {
+                DataContext = new ViewModel(new GeneralDataProvider())
+            };
             mainWindow.Show();
         }
 

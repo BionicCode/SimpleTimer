@@ -1,12 +1,15 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Microsoft.Win32;
+using SimpleTimer.Models;
 using SimpleTimer.Models.HelperClasses;
 
 namespace SimpleTimer.ViewModels
 {
-    public class ViewModel : BaseViewModel
+    public class ViewModel : IViewModel
     {
         //private ExecutableProcess ExecutableProcess { get; set; }
 
@@ -24,8 +27,14 @@ namespace SimpleTimer.ViewModels
         private TimeSpan BackgroundWorkTimerInterval { get; set; }
         private TimeSpan LabelTimerInterval { get; set; }
 
-        public ViewModel()
+        private IGeneralDataProvider GeneralDataProvider { get; }
+
+        private void UpdateTimeLimit() => this.GeneralDataProvider.SetTimeLimit(this.HoursLimitProp);
+
+        public ViewModel(IGeneralDataProvider generalDataProvider)
         {
+            this.GeneralDataProvider = generalDataProvider;
+
             // Initialize the current time elapsed field by adding the offset
             this.SecondsAlreadyPassed = this.SecondsAlreadyPassed.Add(ViewModel.StartFromSecConfProp);
 
@@ -39,6 +48,12 @@ namespace SimpleTimer.ViewModels
             this.newProcess = new ExecutableProcess(this.LabelTimerInterval, LabelTimer);
             this.newProcess.Start();
         }
+
+        private void Initialize()
+        {
+            this.HoursLimitProp = this.GeneralDataProvider.GetTimeLimit();
+        }
+
         private void PauseTimer()
         {
             this.newProcess.TogglePause();
@@ -106,5 +121,15 @@ namespace SimpleTimer.ViewModels
                 }
             }
         }
+
+        #region Implementation of INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion Implementation of INotifyPropertyChanged
     }
 }

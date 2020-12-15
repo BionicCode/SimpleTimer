@@ -57,5 +57,17 @@ namespace SimpleTimer.Models.Properties {
                 this["lastLoginTimeStamp"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TimeLimit {
+            get {
+                return ((string)(this["TimeLimit"]));
+            }
+            set {
+                this["TimeLimit"] = value;
+            }
+        }
     }
 }

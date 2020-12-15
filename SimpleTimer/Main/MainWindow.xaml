@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:converter="clr-namespace:SimpleTimer.Resources.Converter;assembly=SimpleTimer.Resources"
         mc:Ignorable="d"
-        Title="Simple timer" Height="450" Width="800" Background="LightGray" WindowStartupLocation="CenterScreen">
+    Title="Simple timer" Height="450" Width="800" Background="LightGray" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <!-- BUG::2.1: Refernced class in other assembly/project and declared internal. Therefore the class is not visible in current assmbly/outside the referenced type's assembly: see BUG 2 for fix -->
         <converter:TimeExceededConverter x:Key="TimeExceededConverter"></converter:TimeExceededConverter>
