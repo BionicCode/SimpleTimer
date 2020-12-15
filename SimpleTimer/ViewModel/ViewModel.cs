@@ -1,11 +1,10 @@
-﻿using System;
+﻿using SimpleTimer.Models;
+using SimpleTimer.Models.HelperClasses;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using Microsoft.Win32;
-using SimpleTimer.Models;
-using SimpleTimer.Models.HelperClasses;
 
 namespace SimpleTimer.ViewModels
 {

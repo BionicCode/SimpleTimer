@@ -7,7 +7,8 @@
         mc:Ignorable="d"
     Title="Simple timer" Height="450" Width="800" Background="LightGray" WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <!-- BUG::2.1: Refernced class in other assembly/project and declared internal. Therefore the class is not visible in current assmbly/outside the referenced type's assembly: see BUG 2 for fix -->
+        <!-- BUG::2.1: Refernced class in other assembly/project and declared internal. 
+        Therefore the class is not visible in current assmbly/outside the referenced type's assembly: see BUG 2 for fix -->
         <converter:TimeExceededConverter x:Key="TimeExceededConverter"></converter:TimeExceededConverter>
     </Window.Resources>
 
@@ -22,60 +23,213 @@
 
         <Viewbox Margin="10,362,727,10">
             <ContentControl Style="{StaticResource Play_icon}" 
-                            Foreground="{Binding Path=CurrentTime, Converter={StaticResource TimeExceededConverter}}" Margin="10" />
+                            Foreground="{Binding Path=CurrentTime, Converter={StaticResource TimeExceededConverter}}" 
+                            Margin="10" />
         </Viewbox>
-        
+
         <Label HorizontalAlignment="Center" Margin="0,166,0,132" Width="428" 
                Foreground="{Binding Path=CurrentTime, Converter={StaticResource TimeExceededConverter}}"
                FontSize="70" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                x:Name="lblTime" Content="{Binding Path=CurrentTime}"/>
+        
         <TextBox x:Name="HoursLimitBox" Text="{Binding HoursLimitProp, Mode=TwoWay}" 
                  HorizontalAlignment="Left" Height="36" Margin="133,10,0,0" 
                  VerticalAlignment="Top" Width="166" FontSize="20"/>
+        
         <Label Content="Set limit time:" HorizontalAlignment="Left" Height="36" Margin="10,10,0,0" 
                VerticalAlignment="Top" Width="118" FontSize="18"/>
+        
         <Viewbox Margin="725,8,12,364">
             <ContentControl Style="{StaticResource ClockTimeExceeded_icon}" 
                             Foreground="{Binding Path=CurrentTime, Converter={StaticResource TimeExceededConverter}}" Margin="10" />
         </Viewbox>
-        <Button Content="Update" HorizontalAlignment="Left" Height="36" Margin="317,10,0,0" VerticalAlignment="Top" Width="97" 
-                Background="Black" Foreground="White" FontWeight="Bold" Command="{Binding UpdateTimeLimitCommand}">
+        
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="320,8,0,0">
+            
+        <Button Command="{Binding UpdateTimeLimitCommand}">
             <Button.Style>
-                <Style TargetType="Button">
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Trigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <ThicknessAnimation Duration="0:0:0.250" To="0" 
-                                                            Storyboard.TargetProperty="BorderThickness" />
-                                        <DoubleAnimation Duration="0:0:0.550" To="120" 
-                                                            Storyboard.TargetProperty="Height" />
-                                        <DoubleAnimation Duration="0:0:0.550" To="120" 
-                                                            Storyboard.TargetProperty="Width" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.EnterActions>
-                            <Trigger.ExitActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <ThicknessAnimation Duration="0:0:0.250" To="0" 
-                                                            Storyboard.TargetProperty="BorderThickness" />
-                                        <DoubleAnimation Duration="0:0:0.550" To="100" 
-                                                            Storyboard.TargetProperty="Height" />
-                                        <DoubleAnimation Duration="0:0:0.550" To="100" 
-                                                            Storyboard.TargetProperty="Width" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.ExitActions>
-                        </Trigger>
-                    </Style.Triggers>
+                <Style TargetType="Button"  >
+                    <Setter Property="Background" Value="Gray" />
+                    <Setter Property="Foreground" Value="#FFB2C6F3" />
+                    <Setter Property="FontSize" Value="16" />
+                    <Setter Property="SnapsToDevicePixels" Value="True" />
+                    <Setter Property="Height"  Value="40" />
+                    <Setter Property="Width"  Value="120" />
+                    <Setter Property="FontWeight"  Value="Bold" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border CornerRadius="2,2,2,2" Background="{TemplateBinding Background}" 
+                                        HorizontalAlignment="Center" Padding="10,10,10,10" VerticalAlignment="Center">
+                                    <Grid>
+                                        <TextBlock>
+                                            <Run Foreground="{TemplateBinding Foreground}" x:Name="a">U</Run>
+                                            <Run Foreground="{TemplateBinding Foreground}" x:Name="b">P</Run>
+                                            <Run Foreground="{TemplateBinding Foreground}" x:Name="c">D</Run>
+                                            <Run Foreground="{TemplateBinding Foreground}" x:Name="d">A</Run>
+                                            <Run Foreground="{TemplateBinding Foreground}" x:Name="e">T</Run>
+                                            <Run Foreground="{TemplateBinding Foreground}" x:Name="f">E</Run>
+                                        </TextBlock>
+                                    </Grid>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <EventTrigger RoutedEvent="Button.MouseEnter">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetProperty="(Run.Foreground).(SolidColorBrush.Color)"
+                                                                Storyboard.TargetName="a"
+                                                                From="#FFB2C6F3" To="#FFFF9700" 
+                                                                Duration="0:0:1.5" BeginTime="0:0:0.1" />
+                                                <ColorAnimation Storyboard.TargetProperty="(Run.Foreground).(SolidColorBrush.Color)"
+                                                                Storyboard.TargetName="b"
+                                                                From="#FFB2C6F3" To="#FFFF9700" 
+                                                                Duration="0:0:1.5" BeginTime="0:0:1" />
+                                                <ColorAnimation Storyboard.TargetProperty="(Run.Foreground).(SolidColorBrush.Color)"
+                                                                Storyboard.TargetName="c"
+                                                                From="#FFB2C6F3" To="#FFFF9700" 
+                                                                Duration="0:0:1.5" BeginTime="0:0:2" />
+                                                <ColorAnimation Storyboard.TargetProperty="(Run.Foreground).(SolidColorBrush.Color)"
+                                                                Storyboard.TargetName="d"
+                                                                From="#FFB2C6F3" To="#FFFF9700" 
+                                                                Duration="0:0:1.5" BeginTime="0:0:3" />
+                                                <ColorAnimation Storyboard.TargetProperty="(Run.Foreground).(SolidColorBrush.Color)"
+                                                                Storyboard.TargetName="e"
+                                                                From="#FFB2C6F3" To="#FFFF9700" 
+                                                                Duration="0:0:1" BeginTime="0:0:4" />
+                                                <ColorAnimation Storyboard.TargetProperty="(Run.Foreground).(SolidColorBrush.Color)"
+                                                                Storyboard.TargetName="f"
+                                                                From="#FFB2C6F3" To="#FFFF9700" 
+                                                                Duration="0:0:1" BeginTime="0:0:5" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                    <EventTrigger RoutedEvent="Button.MouseLeave">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetProperty="(Run.Foreground).(SolidColorBrush.Color)"
+                                                                Storyboard.TargetName="d"
+                                                                From="#FFFF9700" To="#FFB2C6F3"
+                                                                Duration="0:0:1"  BeginTime="0:0:0.1" />
+                                                <ColorAnimation Storyboard.TargetProperty="(Run.Foreground).(SolidColorBrush.Color)"
+                                                                Storyboard.TargetName="c"
+                                                                From="#FFFF9700" To="#FFB2C6F3"
+                                                                Duration="0:0:1"  BeginTime="0:0:1" />
+                                                <ColorAnimation Storyboard.TargetProperty="(Run.Foreground).(SolidColorBrush.Color)"
+                                                                Storyboard.TargetName="b"
+                                                                From="#FFFF9700" To="#FFB2C6F3"
+                                                                Duration="0:0:1"  BeginTime="0:0:2" />
+                                                <ColorAnimation Storyboard.TargetProperty="(Run.Foreground).(SolidColorBrush.Color)"
+                                                                Storyboard.TargetName="a"
+                                                                From="#FFFF9700" To="#FFB2C6F3"
+                                                                Duration="0:0:1"  BeginTime="0:0:3" />
+                                                <ColorAnimation Storyboard.TargetProperty="(Run.Foreground).(SolidColorBrush.Color)"
+                                                                Storyboard.TargetName="e"
+                                                                From="#FFFF9700" To="#FFB2C6F3"
+                                                                Duration="0:0:1" BeginTime="0:0:4" />
+                                                <ColorAnimation Storyboard.TargetProperty="(Run.Foreground).(SolidColorBrush.Color)"
+                                                                Storyboard.TargetName="f"
+                                                                From="#FFFF9700" To="#FFB2C6F3"
+                                                                Duration="0:0:1" BeginTime="0:0:5" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
                 </Style>
             </Button.Style>
         </Button>
-        <Button Content="Pause" HorizontalAlignment="Left" Height="36" Command="{Binding PauseTimerCommand}"
-                Margin="587,10,0,0" VerticalAlignment="Top" Width="98"/>
 
+        
+        <Button Command="{Binding PauseTimerCommand}">
+            <Button.Style>
+                <Style TargetType="Button"  >
+                    <Setter Property="Background" Value="Gray" />
+                    <Setter Property="Foreground" Value="#FFB2C6F3" />
+                    <Setter Property="FontSize" Value="16" />
+                    <Setter Property="SnapsToDevicePixels" Value="True" />
+                    <Setter Property="Height"  Value="40" />
+                    <Setter Property="Width"  Value="120" />
+                    <Setter Property="FontWeight"  Value="Bold" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border CornerRadius="2,2,2,2" Background="{TemplateBinding Background}" 
+                                        HorizontalAlignment="Center" Padding="20,10,20,10" VerticalAlignment="Center">
+                                    <Grid>
+                                        <TextBlock>
+                                            <Run Foreground="{TemplateBinding Foreground}" x:Name="a">P</Run>
+                                            <Run Foreground="{TemplateBinding Foreground}" x:Name="b">A</Run>
+                                            <Run Foreground="{TemplateBinding Foreground}" x:Name="c">U</Run>
+                                            <Run Foreground="{TemplateBinding Foreground}" x:Name="d">S</Run>
+                                            <Run Foreground="{TemplateBinding Foreground}" x:Name="e">E</Run>
+                                        </TextBlock>
+                                    </Grid>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <EventTrigger RoutedEvent="Button.MouseEnter">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetProperty="(Run.Foreground).(SolidColorBrush.Color)"
+                                                                Storyboard.TargetName="a"
+                                                                From="#FFB2C6F3" To="#FFFF9700" 
+                                                                Duration="0:0:1.5" BeginTime="0:0:0.1" />
+                                                <ColorAnimation Storyboard.TargetProperty="(Run.Foreground).(SolidColorBrush.Color)"
+                                                                Storyboard.TargetName="b"
+                                                                From="#FFB2C6F3" To="#FFFF9700" 
+                                                                Duration="0:0:1.5" BeginTime="0:0:1" />
+                                                <ColorAnimation Storyboard.TargetProperty="(Run.Foreground).(SolidColorBrush.Color)"
+                                                                Storyboard.TargetName="c"
+                                                                From="#FFB2C6F3" To="#FFFF9700" 
+                                                                Duration="0:0:1.5" BeginTime="0:0:2" />
+                                                <ColorAnimation Storyboard.TargetProperty="(Run.Foreground).(SolidColorBrush.Color)"
+                                                                Storyboard.TargetName="d"
+                                                                From="#FFB2C6F3" To="#FFFF9700" 
+                                                                Duration="0:0:1.5" BeginTime="0:0:3" />
+                                                <ColorAnimation Storyboard.TargetProperty="(Run.Foreground).(SolidColorBrush.Color)"
+                                                                Storyboard.TargetName="e"
+                                                                From="#FFB2C6F3" To="#FFFF9700" 
+                                                                Duration="0:0:1" BeginTime="0:0:4" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                    <EventTrigger RoutedEvent="Button.MouseLeave">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetProperty="(Run.Foreground).(SolidColorBrush.Color)"
+                                                                Storyboard.TargetName="d"
+                                                                From="#FFFF9700" To="#FFB2C6F3"
+                                                                Duration="0:0:1"  BeginTime="0:0:0.1" />
+                                                <ColorAnimation Storyboard.TargetProperty="(Run.Foreground).(SolidColorBrush.Color)"
+                                                                Storyboard.TargetName="c"
+                                                                From="#FFFF9700" To="#FFB2C6F3"
+                                                                Duration="0:0:1"  BeginTime="0:0:1" />
+                                                <ColorAnimation Storyboard.TargetProperty="(Run.Foreground).(SolidColorBrush.Color)"
+                                                                Storyboard.TargetName="b"
+                                                                From="#FFFF9700" To="#FFB2C6F3"
+                                                                Duration="0:0:1"  BeginTime="0:0:2" />
+                                                <ColorAnimation Storyboard.TargetProperty="(Run.Foreground).(SolidColorBrush.Color)"
+                                                                Storyboard.TargetName="a"
+                                                                From="#FFFF9700" To="#FFB2C6F3"
+                                                                Duration="0:0:1"  BeginTime="0:0:3" />
+                                                <ColorAnimation Storyboard.TargetProperty="(Run.Foreground).(SolidColorBrush.Color)"
+                                                                Storyboard.TargetName="e"
+                                                                From="#FFFF9700" To="#FFB2C6F3"
+                                                                Duration="0:0:1" BeginTime="0:0:4" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
+        </StackPanel>
+        <!--<Button Content="Pause" HorizontalAlignment="Left" Height="36" Command="{Binding PauseTimerCommand}"
+                Margin="587,10,0,0" VerticalAlignment="Top" Width="98"/>-->
 
     </Grid>
 </Window>
