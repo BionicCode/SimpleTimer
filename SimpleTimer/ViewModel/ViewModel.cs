@@ -10,14 +10,15 @@ namespace SimpleTimer.ViewModels
 {
     public class ViewModel : IViewModel
     {
-        public TimerViewModel TimerViewModel { get; set; }
+        // BUG::Good to use a property (don't use public fields!). But you don't want to mutate the value of this property (prevent unwanted side effects). Therefore make the sett private (as this property is set internally or via constructor). If this property is not intended to ever change after initialization, make it read-only by removing the set method. If this property is not meant to accessed outside this class make it private too:
+        // public TimerViewModel TimerViewModel { get; set; }
+        public TimerViewModel TimerViewModel { get; }
 
-        // Set the timer offset to 50 seconds
-        private static readonly TimeSpan StartFromSecConfProp = TimeSpan.FromSeconds(50);
-        private TimeSpan SecondsAlreadyPassed = TimeSpan.Zero;
+    // Set the timer offset to 50 seconds
+    private static readonly TimeSpan StartFromSecConfProp = TimeSpan.FromSeconds(50);
 
-        private static Action _timerAction;
-        private static TimeSpan SecondsBetweenRun;
+        // BUG::Turn into property and move initialization to constructor (optional but recommended)
+        private TimeSpan SecondsAlreadyPassed { get; set; }
 
         public ICommand PauseTimerCommand => new RelayCommand(param => PauseTimer());
 
@@ -30,14 +31,21 @@ namespace SimpleTimer.ViewModels
 
         public void UpdateTimeLimit() => this.GeneralDataProvider.SetTimeLimit(this.HoursLimitProp);
 
-        public ViewModel(IGeneralDataProvider generalDataProvider)
+        // INFO::Alternative version (my preference): inject all the dependencies. But don't mix it: either pass all dependencies to the constructor (variant 1) or instantiate all dependencies inside this class using 'new' (variant 2). The alternative constructor and TimerViewModel initialization could look like this:
+        public ViewModel(IGeneralDataProvider generalDataProvider, TimerViewModel timerViewModel)
         {
             this.GeneralDataProvider = generalDataProvider;
 
-            this.TimerViewModel = new TimerViewModel();
+            // Alternative version (variant 1)
+            this.TimerViewModel = timerViewModel;
+      
+            // Original version (variant 2)
+            //this.TimerViewModel = new TimerViewModel();
 
-            // Initialize the current time elapsed field by adding the offset
-            this.SecondsAlreadyPassed = this.SecondsAlreadyPassed.Add(ViewModel.StartFromSecConfProp);
+            this.SecondsAlreadyPassed = TimeSpan.Zero;
+
+      // Initialize the current time elapsed field by adding the offset
+      this.SecondsAlreadyPassed = this.SecondsAlreadyPassed.Add(ViewModel.StartFromSecConfProp);
 
             // We specify this method to be executed every 1 srcond // BACKGROUND WORK
             this.BackgroundWorkTimerInterval = TimeSpan.FromSeconds(1);
@@ -46,8 +54,8 @@ namespace SimpleTimer.ViewModels
 
             // We specify this method to be executed every 1 srcond // DISPLAYED IN LABEL
             this.LabelTimerInterval = TimeSpan.FromSeconds(1);
-            TimerViewModel.newProcess = new ExecutableProcess(this.LabelTimerInterval, LabelTimer);
-            TimerViewModel.newProcess.Start();
+            TimerViewModel.NewProcess = new ExecutableProcess(this.LabelTimerInterval, LabelTimer);
+            TimerViewModel.NewProcess.Start();
 
             Initialize();
         }
@@ -59,7 +67,7 @@ namespace SimpleTimer.ViewModels
 
         private void PauseTimer()
         {
-            TimerViewModel.newProcess.TogglePause();
+            this.TimerViewModel.NewProcess.TogglePause();
         }
 
         private void LabelTimer()
