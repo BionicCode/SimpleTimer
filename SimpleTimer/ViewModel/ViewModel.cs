@@ -67,7 +67,7 @@ namespace SimpleTimer.ViewModels
             this.SecondsAlreadyPassed = this.SecondsAlreadyPassed.Add(this.LabelTimerInterval);
             this.CurrentTime = this.SecondsAlreadyPassed.ToString(@"hh\:mm\:ss"); // DateTime.Now.ToLongTimeString()
 
-            // BUG::Wrong namespace. After refactoring (moving types to new projects/folders) you forgot to adjust the namespaces, 
+            // HINT::Wrong namespace. After refactoring (moving types to new projects/folders) you forgot to adjust the namespaces, 
             // so the type DateTimeConverter could not be resolved.
             // Old namespace: SimpleTimer.HelperClass. Fixed namespace:SimpleTimer.Model.HelperClass. I lived up to the occasion 
             // to rename the namespace/folder from ..Calsses to ..Classes (fixed typo)
@@ -78,15 +78,15 @@ namespace SimpleTimer.ViewModels
 
             if (this.CurrentTime == RingTime.ToLongTimeString())
             {
-                // BUG::Not implemented.
-                // FIX::Created method. Implementation pending.
+                // HINT::Not implemented.
+                // HINT::Created method. Implementation pending.
                 HelperClass.PlaySound();
             }
         }
 
         private static void MyProcessToExecute()
         {
-            Debug.Write($"Running {DateTime.Now}" + "\n");
+            //Debug.Write($"Running {DateTime.Now}" + "\n");
         }
 
         /// <summary>
