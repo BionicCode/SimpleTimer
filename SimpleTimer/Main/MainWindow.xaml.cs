@@ -32,5 +32,10 @@ namespace SimpleTimer.Main
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
         }
+
+        private void ContentControl_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
