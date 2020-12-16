@@ -10,7 +10,7 @@ namespace SimpleTimer.ViewModels
 {
     public class ViewModel : IViewModel
     {
-        //private ExecutableProcess ExecutableProcess { get; set; }
+        public TimerViewModel TimerViewModel { get; set; }
 
         // Set the timer offset to 50 seconds
         private static readonly TimeSpan StartFromSecConfProp = TimeSpan.FromSeconds(50);
@@ -18,9 +18,6 @@ namespace SimpleTimer.ViewModels
 
         private static Action _timerAction;
         private static TimeSpan SecondsBetweenRun;
-
-        // ExecutableProcess executableProcess = new ExecutableProcess();
-        public ExecutableProcess newProcess = new ExecutableProcess(ViewModel.SecondsBetweenRun, ViewModel._timerAction);
 
         public ICommand PauseTimerCommand => new RelayCommand(param => PauseTimer());
 
@@ -37,6 +34,8 @@ namespace SimpleTimer.ViewModels
         {
             this.GeneralDataProvider = generalDataProvider;
 
+            this.TimerViewModel = new TimerViewModel();
+
             // Initialize the current time elapsed field by adding the offset
             this.SecondsAlreadyPassed = this.SecondsAlreadyPassed.Add(ViewModel.StartFromSecConfProp);
 
@@ -47,8 +46,8 @@ namespace SimpleTimer.ViewModels
 
             // We specify this method to be executed every 1 srcond // DISPLAYED IN LABEL
             this.LabelTimerInterval = TimeSpan.FromSeconds(1);
-            this.newProcess = new ExecutableProcess(this.LabelTimerInterval, LabelTimer);
-            this.newProcess.Start();
+            TimerViewModel.newProcess = new ExecutableProcess(this.LabelTimerInterval, LabelTimer);
+            TimerViewModel.newProcess.Start();
 
             Initialize();
         }
@@ -60,7 +59,7 @@ namespace SimpleTimer.ViewModels
 
         private void PauseTimer()
         {
-            this.newProcess.TogglePause();
+            TimerViewModel.newProcess.TogglePause();
         }
 
         private void LabelTimer()

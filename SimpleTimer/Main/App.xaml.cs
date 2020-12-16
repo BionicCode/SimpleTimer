@@ -12,12 +12,11 @@ namespace SimpleTimer.Main
     /// </summary>
     public partial class App : Application
     {
-        //ViewModel VM = new ViewModel();
-        private ViewModel ViewModel { get; }
-
         public App()
         {
         }
+
+        private TimerViewModel TimerViewModel { get; }
 
         private void Run(object sender, StartupEventArgs e)
         {
@@ -26,6 +25,7 @@ namespace SimpleTimer.Main
             var mainWindow = new MainWindow() {
                 DataContext = new ViewModel(new GeneralDataProvider())
             };
+
             mainWindow.Show();
         }
 
@@ -34,12 +34,12 @@ namespace SimpleTimer.Main
             if (e.Reason == SessionSwitchReason.SessionLock)
             {
                 Debug.Print("I am locked: " + DateTime.Now);
-                ViewModel.newProcess.TogglePause();
+                TimerViewModel.newProcess.TogglePause();
             }
             else if (e.Reason == SessionSwitchReason.SessionUnlock)
             {
                 Debug.Print("I am unlocked: " + DateTime.Now);
-                ViewModel.newProcess.TogglePause();
+                TimerViewModel.newProcess.TogglePause();
             }
         }
     }
