@@ -10,7 +10,7 @@
         AllowsTransparency="True" MouseDown="Window_MouseDown" >
 
     <Window.Clip>
-        <RectangleGeometry Rect="0,0,857,483" RadiusX="25" RadiusY="25"/>
+        <RectangleGeometry Rect="0,0,857,483" RadiusX="35" RadiusY="35"/>
     </Window.Clip>
 
     <Window.Resources>
@@ -42,20 +42,6 @@
         </Viewbox>
 
         <Viewbox Margin="760,10,10,410" Height="30" Width="30" Cursor="Hand">
-            <!--<ContentControl>
-                <ContentControl.Style>
-            
-            
-                    <Style TargetType="{x:Type ContentControl}">
-                        <Setter Property="Content" Value="{StaticResource action_message}"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Border,AncestorLevel=1}, Path=IsMouseOver}" Value="True" >
-                                <Setter Property="Content" Value="{StaticResource action_message_focus}"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ContentControl.Style>
-            </ContentControl>-->
             <ContentControl Style="{StaticResource CloseButton_icon}" 
                             Foreground="{Binding Path=CurrentTime, Converter={StaticResource TimeExceededConverter}}" 
                             Margin="10" MouseDown="ContentControl_MouseDown" />
