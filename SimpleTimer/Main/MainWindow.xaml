@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         Title="Simple timer" Height="450" Width="800" WindowStartupLocation="CenterScreen"
         WindowStyle="None"
-        AllowsTransparency="True" MouseDown="Window_MouseDown" >
+        AllowsTransparency="True" MouseDown="Window_MouseDown" Opacity="0.98">
 
     <Window.Clip>
-        <RectangleGeometry Rect="0,0,857,483" RadiusX="35" RadiusY="35"/>
+        <RectangleGeometry Rect="0,0,857,483" RadiusX="42" RadiusY="42"/>
     </Window.Clip>
 
     <Window.Resources>
@@ -35,13 +35,27 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Viewbox Margin="23,352,714,20">
+        <Viewbox Margin="10,370,727,2">
             <ContentControl Style="{StaticResource Play_icon}" 
                             Foreground="{Binding Path=CurrentTime, Converter={StaticResource TimeExceededConverter}}" 
                             Margin="10" />
         </Viewbox>
 
         <Viewbox Margin="760,10,10,410" Height="30" Width="30" Cursor="Hand">
+            <!--<ContentControl>
+                <ContentControl.Style>
+            
+            
+                    <Style TargetType="{x:Type ContentControl}">
+                        <Setter Property="Content" Value="{StaticResource action_message}"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Border,AncestorLevel=1}, Path=IsMouseOver}" Value="True" >
+                                <Setter Property="Content" Value="{StaticResource action_message_focus}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+            </ContentControl>-->
             <ContentControl Style="{StaticResource CloseButton_icon}" 
                             Foreground="{Binding Path=CurrentTime, Converter={StaticResource TimeExceededConverter}}" 
                             Margin="10" MouseDown="ContentControl_MouseDown" />
@@ -49,15 +63,26 @@
 
         <Label HorizontalAlignment="Center" Margin="0,166,0,132" Width="428" 
                Foreground="{Binding Path=CurrentTime, Converter={StaticResource TimeExceededConverter}}"
-               FontSize="80" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+               FontSize="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                x:Name="lblTime" Content="{Binding Path=CurrentTime}"/>
 
-        <TextBox x:Name="HoursLimitBox" Text="{Binding HoursLimitProp, Mode=TwoWay}" TextAlignment="Center"
-                 HorizontalAlignment="Left" Height="36" Margin="293,24,0,0" Opacity="0.2"
-                 VerticalAlignment="Top" Width="136" FontSize="20"/>
+        <TextBox x:Name="HoursLimitBox" Text="{Binding HoursLimitProp, Mode=TwoWay}" TextAlignment="Center" FontWeight="Bold"
+                 HorizontalAlignment="Left" Height="36" Margin="310,26,0,0" Foreground="#FFB2C6F3"
+                 VerticalAlignment="Top" Width="136" FontSize="20" BorderBrush="Transparent">
+            <TextBox.Background>
+                <SolidColorBrush Color="Azure" Opacity="0.02" />
+            </TextBox.Background>
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="3"/>
+                </Style>
+            </TextBox.Resources>
+        </TextBox>
 
-        <Label Content="Time limit:" HorizontalAlignment="Left" Height="36" Margin="151,24,0,0" 
-               VerticalAlignment="Top" Width="106" FontSize="20" Foreground="#FFB2C6F3"/>
+        <Border BorderBrush="{x:Null}" Height="36" Width="140" Margin="110,24,490,390">
+            <TextBlock Text="T I M E    L I M I T" HorizontalAlignment="Left" VerticalAlignment="Center"
+               FontSize="16" FontWeight="Bold" Foreground="#FFB2C6F3"/>
+        </Border>
 
         <Viewbox Margin="10,3,727,369">
             <ContentControl Style="{StaticResource ClockTimeExceeded_icon}" 
