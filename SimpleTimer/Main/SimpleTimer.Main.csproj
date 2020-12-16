@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.12" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Resource\SimpleTimer.Resources.csproj" />
     <ProjectReference Include="..\ViewModel\SimpleTimer.ViewModels.csproj" />
   </ItemGroup>
@@ -24,6 +28,9 @@
     <None Update="Properties\Appsettings.settings">
       <LastGenOutput>Appsettings.Designer.cs</LastGenOutput>
       <Generator>SettingsSingleFileGenerator</Generator>
+    </None>
+    <None Update="Properties\log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

@@ -41,7 +41,21 @@
                             Margin="10" />
         </Viewbox>
 
-        <Viewbox Margin="760,10,10,410" Height="30" Width="30">
+        <Viewbox Margin="760,10,10,410" Height="30" Width="30" Cursor="Hand">
+            <!--<ContentControl>
+                <ContentControl.Style>
+            
+            
+                    <Style TargetType="{x:Type ContentControl}">
+                        <Setter Property="Content" Value="{StaticResource action_message}"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Border,AncestorLevel=1}, Path=IsMouseOver}" Value="True" >
+                                <Setter Property="Content" Value="{StaticResource action_message_focus}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+            </ContentControl>-->
             <ContentControl Style="{StaticResource CloseButton_icon}" 
                             Foreground="{Binding Path=CurrentTime, Converter={StaticResource TimeExceededConverter}}" 
                             Margin="10" MouseDown="ContentControl_MouseDown" />
@@ -64,8 +78,8 @@
                             Foreground="{Binding Path=CurrentTime, Converter={StaticResource TimeExceededConverter}}" Margin="10" />
         </Viewbox>
 
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="474,22,-42,0">
-            <Button Command="{Binding UpdateTimeLimitCommand}">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="474,22,80,0">
+            <Button Command="{Binding UpdateTimeLimitCommand}" Cursor="Hand">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}"  >
                         <Setter Property="Background" Value="Transparent" />
@@ -154,7 +168,7 @@
             </Button>
 
 
-            <Button Command="{Binding PauseTimerCommand}">
+            <Button Command="{Binding PauseTimerCommand}" Cursor="Hand">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}"  >
                         <Setter Property="Background" Value="Transparent" />

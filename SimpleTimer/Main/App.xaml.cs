@@ -4,6 +4,8 @@ using System;
 using System.Diagnostics;
 using System.Windows;
 using SimpleTimer.Models;
+using log4net;
+using System.Reflection;
 
 namespace SimpleTimer.Main
 {
@@ -12,6 +14,9 @@ namespace SimpleTimer.Main
     /// </summary>
     public partial class App : Application
     {
+        private ILog Logger { get; } =
+            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         public App()
         {
         }
