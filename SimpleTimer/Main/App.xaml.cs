@@ -21,14 +21,16 @@ namespace SimpleTimer.Main
         {
         }
 
-        private TimerViewModel TimerViewModel { get; }
+        public ViewModel ViewModel { get; set; }
 
         private void Run(object sender, StartupEventArgs e)
         {
-            SystemEvents.SessionSwitch += new SessionSwitchEventHandler(SystemEvents_SessionSwitch);
+            SystemEvents.SessionSwitch += new SessionSwitchEventHandler(this.SystemEvents_SessionSwitch);
+            
+            this.ViewModel = new ViewModel(new GeneralDataProvider());
 
             var mainWindow = new MainWindow() {
-                DataContext = new ViewModel(new GeneralDataProvider())
+                DataContext = ViewModel
             };
 
             mainWindow.Show();
@@ -39,12 +41,12 @@ namespace SimpleTimer.Main
             if (e.Reason == SessionSwitchReason.SessionLock)
             {
                 Debug.Print("I am locked: " + DateTime.Now);
-                TimerViewModel.newProcess.TogglePause();
+                ViewModel.newProcess.TogglePause();
             }
             else if (e.Reason == SessionSwitchReason.SessionUnlock)
             {
                 Debug.Print("I am unlocked: " + DateTime.Now);
-                TimerViewModel.newProcess.TogglePause();
+                ViewModel.newProcess.TogglePause();
             }
         }
     }

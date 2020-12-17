@@ -1,4 +1,5 @@
-﻿using SimpleTimer.Models;
+﻿using Microsoft.Win32;
+using SimpleTimer.Models;
 using SimpleTimer.Models.HelperClasses;
 using System;
 using System.ComponentModel;
@@ -19,7 +20,7 @@ namespace SimpleTimer.ViewModels
         private static Action _timerAction;
         private static TimeSpan SecondsBetweenRun;
 
-        public ICommand PauseTimerCommand => new RelayCommand(param => PauseTimer());
+        public ICommand PauseTimerCommand => new RelayCommand(param => this.PauseTimer());
 
         public ICommand UpdateTimeLimitCommand => new RelayCommand(param => UpdateTimeLimit());
 
@@ -34,7 +35,7 @@ namespace SimpleTimer.ViewModels
         {
             this.GeneralDataProvider = generalDataProvider;
 
-            this.TimerViewModel = new TimerViewModel();
+            //this.TimerViewModel = new TimerViewModel();
 
             // Initialize the current time elapsed field by adding the offset
             this.SecondsAlreadyPassed = this.SecondsAlreadyPassed.Add(ViewModel.StartFromSecConfProp);
@@ -46,20 +47,36 @@ namespace SimpleTimer.ViewModels
 
             // We specify this method to be executed every 1 srcond // DISPLAYED IN LABEL
             this.LabelTimerInterval = TimeSpan.FromSeconds(1);
-            TimerViewModel.newProcess = new ExecutableProcess(this.LabelTimerInterval, LabelTimer);
-            TimerViewModel.newProcess.Start();
+            this.newProcess = new ExecutableProcess(this.LabelTimerInterval, LabelTimer);
+            this.newProcess.Start();
 
             Initialize();
+        }
+
+        // ExecutableProcess executableProcess = new ExecutableProcess();
+        public ExecutableProcess newProcess = new ExecutableProcess(ViewModel.SecondsBetweenRun, ViewModel._timerAction);
+
+        public void SystemEvents_SessionSwitch(object sender, SessionSwitchEventArgs e)
+        {
+            if (e.Reason == SessionSwitchReason.SessionLock)
+            {
+                Debug.Print("I am locked: " + DateTime.Now);
+                this.newProcess.TogglePause();
+            }
+            else if (e.Reason == SessionSwitchReason.SessionUnlock)
+            {
+                Debug.Print("I am unlocked: " + DateTime.Now);
+                this.newProcess.TogglePause();
+            }
+        }
+        public void PauseTimer()
+        {
+            this.newProcess.TogglePause();
         }
 
         private void Initialize()
         {
             this.HoursLimitProp = this.GeneralDataProvider.GetTimeLimit();
-        }
-
-        private void PauseTimer()
-        {
-            TimerViewModel.newProcess.TogglePause();
         }
 
         private void LabelTimer()

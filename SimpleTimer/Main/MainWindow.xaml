@@ -61,7 +61,7 @@
                             Margin="10" MouseDown="ContentControl_MouseDown" />
         </Viewbox>
 
-        <Label HorizontalAlignment="Center" Margin="0,166,0,132" Width="428" 
+        <Label HorizontalAlignment="Center" Margin="0,166,0,132" Width="428" FontFamily="Century Gothic"
                Foreground="{Binding Path=CurrentTime, Converter={StaticResource TimeExceededConverter}}"
                FontSize="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                x:Name="lblTime" Content="{Binding Path=CurrentTime}"/>
