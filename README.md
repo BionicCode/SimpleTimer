@@ -7,4 +7,4 @@ Simple timer where you can set your time to execute "ring a bell" command.
 * .NET 5
 
 
-![GitHub Logo](https://user-images.githubusercontent.com/72302395/102588207-bca54b00-4115-11eb-8305-6370e695f341.png)
+![GitHub Logo](https://user-images.githubusercontent.com/72302395/102588393-0b52e500-4116-11eb-9d96-eab73e998b58.png)
