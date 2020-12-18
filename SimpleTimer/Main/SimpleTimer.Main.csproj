@@ -4,8 +4,12 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>plays.ico</ApplicationIcon>
+    <ApplicationIcon>play.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.12" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Resource\SimpleTimer.Resources.csproj" />
@@ -24,6 +28,9 @@
     <None Update="Properties\Appsettings.settings">
       <LastGenOutput>Appsettings.Designer.cs</LastGenOutput>
       <Generator>SettingsSingleFileGenerator</Generator>
+    </None>
+    <None Update="Properties\log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

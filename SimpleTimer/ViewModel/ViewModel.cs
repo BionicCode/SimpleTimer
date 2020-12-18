@@ -1,4 +1,5 @@
-﻿using SimpleTimer.Models;
+﻿using Microsoft.Win32;
+using SimpleTimer.Models;
 using SimpleTimer.Models.HelperClasses;
 using System;
 using System.ComponentModel;
@@ -10,17 +11,16 @@ namespace SimpleTimer.ViewModels
 {
     public class ViewModel : IViewModel
     {
-        // BUG::Good to use a property (don't use public fields!). But you don't want to mutate the value of this property (prevent unwanted side effects). Therefore make the sett private (as this property is set internally or via constructor). If this property is not intended to ever change after initialization, make it read-only by removing the set method. If this property is not meant to accessed outside this class make it private too:
-        // public TimerViewModel TimerViewModel { get; set; }
-        public TimerViewModel TimerViewModel { get; }
+        public TimerViewModel TimerViewModel { get; set; }
 
-    // Set the timer offset to 50 seconds
-    private static readonly TimeSpan StartFromSecConfProp = TimeSpan.FromSeconds(50);
+        // Set the timer offset to 50 seconds
+        private static readonly TimeSpan StartFromSecConfProp = TimeSpan.FromSeconds(50);
+        private TimeSpan SecondsAlreadyPassed = TimeSpan.Zero;
 
-        // BUG::Turn into property and move initialization to constructor (optional but recommended)
-        private TimeSpan SecondsAlreadyPassed { get; set; }
+        private static Action _timerAction;
+        private static TimeSpan SecondsBetweenRun;
 
-        public ICommand PauseTimerCommand => new RelayCommand(param => PauseTimer());
+        public ICommand PauseTimerCommand => new RelayCommand(param => this.PauseTimer());
 
         public ICommand UpdateTimeLimitCommand => new RelayCommand(param => UpdateTimeLimit());
 
@@ -31,21 +31,14 @@ namespace SimpleTimer.ViewModels
 
         public void UpdateTimeLimit() => this.GeneralDataProvider.SetTimeLimit(this.HoursLimitProp);
 
-        // INFO::Alternative version (my preference): inject all the dependencies. But don't mix it: either pass all dependencies to the constructor (variant 1) or instantiate all dependencies inside this class using 'new' (variant 2). The alternative constructor and TimerViewModel initialization could look like this:
-        public ViewModel(IGeneralDataProvider generalDataProvider, TimerViewModel timerViewModel)
+        public ViewModel(IGeneralDataProvider generalDataProvider)
         {
             this.GeneralDataProvider = generalDataProvider;
 
-            // Alternative version (variant 1)
-            this.TimerViewModel = timerViewModel;
-      
-            // Original version (variant 2)
             //this.TimerViewModel = new TimerViewModel();
 
-            this.SecondsAlreadyPassed = TimeSpan.Zero;
-
-      // Initialize the current time elapsed field by adding the offset
-      this.SecondsAlreadyPassed = this.SecondsAlreadyPassed.Add(ViewModel.StartFromSecConfProp);
+            // Initialize the current time elapsed field by adding the offset
+            this.SecondsAlreadyPassed = this.SecondsAlreadyPassed.Add(ViewModel.StartFromSecConfProp);
 
             // We specify this method to be executed every 1 srcond // BACKGROUND WORK
             this.BackgroundWorkTimerInterval = TimeSpan.FromSeconds(1);
@@ -54,10 +47,31 @@ namespace SimpleTimer.ViewModels
 
             // We specify this method to be executed every 1 srcond // DISPLAYED IN LABEL
             this.LabelTimerInterval = TimeSpan.FromSeconds(1);
-            TimerViewModel.NewProcess = new ExecutableProcess(this.LabelTimerInterval, LabelTimer);
-            TimerViewModel.NewProcess.Start();
+            this.newProcess = new ExecutableProcess(this.LabelTimerInterval, LabelTimer);
+            this.newProcess.Start();
 
             Initialize();
+        }
+
+        // ExecutableProcess executableProcess = new ExecutableProcess();
+        public ExecutableProcess newProcess = new ExecutableProcess(ViewModel.SecondsBetweenRun, ViewModel._timerAction);
+
+        public void SystemEvents_SessionSwitch(object sender, SessionSwitchEventArgs e)
+        {
+            if (e.Reason == SessionSwitchReason.SessionLock)
+            {
+                Debug.Print("I am locked: " + DateTime.Now);
+                this.newProcess.TogglePause();
+            }
+            else if (e.Reason == SessionSwitchReason.SessionUnlock)
+            {
+                Debug.Print("I am unlocked: " + DateTime.Now);
+                this.newProcess.TogglePause();
+            }
+        }
+        public void PauseTimer()
+        {
+            this.newProcess.TogglePause();
         }
 
         private void Initialize()
@@ -65,17 +79,12 @@ namespace SimpleTimer.ViewModels
             this.HoursLimitProp = this.GeneralDataProvider.GetTimeLimit();
         }
 
-        private void PauseTimer()
-        {
-            this.TimerViewModel.NewProcess.TogglePause();
-        }
-
         private void LabelTimer()
         {
             this.SecondsAlreadyPassed = this.SecondsAlreadyPassed.Add(this.LabelTimerInterval);
             this.CurrentTime = this.SecondsAlreadyPassed.ToString(@"hh\:mm\:ss"); // DateTime.Now.ToLongTimeString()
 
-            // BUG::Wrong namespace. After refactoring (moving types to new projects/folders) you forgot to adjust the namespaces, 
+            // HINT::Wrong namespace. After refactoring (moving types to new projects/folders) you forgot to adjust the namespaces, 
             // so the type DateTimeConverter could not be resolved.
             // Old namespace: SimpleTimer.HelperClass. Fixed namespace:SimpleTimer.Model.HelperClass. I lived up to the occasion 
             // to rename the namespace/folder from ..Calsses to ..Classes (fixed typo)
@@ -86,15 +95,15 @@ namespace SimpleTimer.ViewModels
 
             if (this.CurrentTime == RingTime.ToLongTimeString())
             {
-                // BUG::Not implemented.
-                // FIX::Created method. Implementation pending.
+                // HINT::Not implemented.
+                // HINT::Created method. Implementation pending.
                 HelperClass.PlaySound();
             }
         }
 
         private static void MyProcessToExecute()
         {
-            Debug.Write($"Running {DateTime.Now}" + "\n");
+            //Debug.Write($"Running {DateTime.Now}" + "\n");
         }
 
         /// <summary>

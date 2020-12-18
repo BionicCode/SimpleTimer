@@ -6,8 +6,8 @@ using SimpleTimer.Models.HelperClasses;
 
 namespace SimpleTimer.Resources.Converter
 { 
-    // BUG::2:Class access modifier is internal. In order to use this class outside this assembly e.g. in Main this class must be public
-    // FIX::2.1: Make class public
+    // HINT::2:Class access modifier is internal. In order to use this class outside this assembly e.g. in Main this class must be public
+    // HINT::2.1: Make class public
     // class TimeExceededConverter : IValueConverter
     public class TimeExceededConverter : IValueConverter
     {
@@ -20,8 +20,8 @@ namespace SimpleTimer.Resources.Converter
             TimeSpan res;
             var result = TimeSpan.TryParseExact(HoursLimitProp, @"hh\:mm\:ss", CultureInfo.InvariantCulture, out res);
 
-      // BUG::Missing import.
-      // FIX::Add using SimpleTimer.Model.HelperClasses
+      // HINT::Missing import.
+      // HINT::Add using SimpleTimer.Model.HelperClasses
       TimeSpan RingTime = HelperClass.ParseToTimeSpanRingTime();
 
             if (res > RingTime)
